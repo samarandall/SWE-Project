@@ -14,11 +14,15 @@ class Level:
 
     def __init__(self):
         """
-        setting up the sprite groups
+        initializing all the level attributes
         """
 
+        # these are the sprite groups
         self.visible_sprites = pygame.sprite.Group()
         self.obstacle_sprites = pygame.sprite.Group()
+
+        # we need a surface to display
+        self.display_surface = pygame.display.get_surface()
 
     def run(self):
         """

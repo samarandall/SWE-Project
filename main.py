@@ -8,6 +8,7 @@ main function which will run our gam
 import pygame, sys
 from settings import *
 
+
 class Game:
     """
     this is our initial class which will run the game
@@ -26,7 +27,7 @@ class Game:
         """
         this is the initial running of the game
         """
-        
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -37,7 +38,7 @@ class Game:
             pygame.display.update()
             self.clock.tick(FPS)
 
+
 if __name__ == "__main__":
     game = Game()
     game.run()
-    

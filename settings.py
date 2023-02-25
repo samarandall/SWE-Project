@@ -2,11 +2,13 @@
 this is the settings file which contains some very basic but important variables
 """
 
-WIDTH = 1280
-HEIGHT = 720
+# these are the main variables for the game
+WIDTH = 1400
+HEIGHT = 750
 FPS = 60
 TILESIZE = 64
 
+# this is the map that is the game layout right now
 WORLD_MAP = [
 ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"],
 ["X", " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ",  " ", "X"],

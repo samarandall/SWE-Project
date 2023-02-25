@@ -2,11 +2,12 @@
 this is our main file for our game
 
 this file contains our main game loop, game class, and the 
-main function which will run our gam
+main function which will run our game
 """
 
 import pygame, sys
 from settings import *
+from level import Level
 
 
 class Game:
@@ -30,6 +31,9 @@ class Game:
         # Icon = pygame.image.laod("some icon file")
         # pygame.display.set_icon(Icon)
 
+        # making the level
+        self.level_one = Level()
+
     def run(self):
         """
         this is the initial running of the game
@@ -42,6 +46,7 @@ class Game:
                     sys.exit()
 
             self.screen.fill("black")
+            self.level_one.run()
             pygame.display.update()
             self.clock.tick(FPS)
 

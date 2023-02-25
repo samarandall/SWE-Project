@@ -1,5 +1,9 @@
 """
 this file will be used to help debug the game
+
+this will give us game information and will not affect the game
+
+run debug in the main game loop and print and important information
 """
 
 import pygame

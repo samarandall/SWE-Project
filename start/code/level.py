@@ -20,22 +20,15 @@ class Level:
         initializing all the level attributes
         """
 
+        # we need a surface to display
+        self.display_surface = pygame.display.get_surface()
+
         # these are the sprite groups
         self.visible_sprites = pygame.sprite.Group()
         self.obstacle_sprites = pygame.sprite.Group()
 
-        # we need a surface to display
-        self.display_surface = pygame.display.get_surface()
-
         # making the map
         self.make_map()
-
-    def run(self):
-        """
-        this method will update and draw the game
-        """
-
-        self.visible_sprites.draw(self.display_surface)
 
     def make_map(self):
         """
@@ -43,7 +36,7 @@ class Level:
         """
 
         for index, i in enumerate(WORLD_MAP):
-            for jindex, j in enumerate(WORLD_MAP):
+            for jindex, j in enumerate(i):
                 x = jindex * TILESIZE
                 y = index * TILESIZE
 
@@ -51,3 +44,10 @@ class Level:
                     TileDraw((x, y), [self.visible_sprites, self.obstacle_sprites])
                 if j == "p":
                     Player((x, y), [self.visible_sprites])
+
+    def run(self):
+        """
+        this method will update and draw the game
+        """
+
+        self.visible_sprites.draw(self.display_surface)

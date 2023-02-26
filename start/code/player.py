@@ -23,5 +23,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
 
         # these variables are always needed for sprites
-        self.image = pygame.image.load("../graphics/test/player.png").convert_alpha()
+        self.image = pygame.image.load(
+            "../graphics/map_assets/player.png"
+        ).convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)

@@ -1,12 +1,16 @@
 # This is the start of the pygame readme
 
-## for development right now
-1. start the virtual environment which should have pygame installed as well as other modules
-    * command to start the venv: source venv/bin/activate
-    * command to stop the venv: deactivate
-2. i initialized with python3, but that should work either way, i think python3 should be the environment for the venv
-3. run python3 main.py which should start the game
+## How to start the game
+
+1. go into SWE-Project directory
+2. at top level activate venv with comand below
+   - source venv/bin/activate
+3. go into /game/code directory
+4. start game with command below
+   - python3 main.py
 
 ## TODO
-1. figure out more about graphics
-2. is this working???? - Victor
+
+1. get player collisions working with obstacle sprite's
+2. figure out what our png's will look like
+3. is this working???? - Victor

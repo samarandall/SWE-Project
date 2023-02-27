@@ -45,7 +45,9 @@ class Level:
                 if j == "x":
                     TileDraw((x, y), [self.visible_sprites, self.obstacle_sprites])
                 if j == "p":
-                    self.player = Player((x, y), [self.visible_sprites])
+                    self.player = Player(
+                        (x, y), [self.visible_sprites], [self.obstacle_sprites]
+                    )
 
     def run(self):
         """

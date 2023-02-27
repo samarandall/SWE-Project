@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
     this is the Player class which inherets pygame sprite
     """
 
-    def __init__(self, pos, groups):
+    def __init__(self, pos, groups, obstacle_sprites):
         """
         this function accepts a position and a sprite group, this shows where to place everything
         """
@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
         # giving speed of player
         self.speed = 5
 
+        # making the obstacle sprites attribute
+        self.obstacle_sprites = obstacle_sprites
+
     def keyboard_input(self):
         """
         this function is getting keys from the user input and making them do something
@@ -45,15 +48,6 @@ class Player(pygame.sprite.Sprite):
         # this is assigning the keys being pressed to a certain direction
         # the else makes it so that if there are no keys being pressed then
         # player stays still
-
-        # for event in pygame.event.get():
-        #     if event.type == pygame.KEY:
-        #         self.direction.y = -1
-        #     elif event.type == pygame.KEYDOWN:
-        #         self.direction.y = 1
-        #     else:
-        #         self.direction.y = 0
-
         # this one is for vertical movements
         if keys[pygame.K_UP]:
             self.direction.y = -1
@@ -74,10 +68,19 @@ class Player(pygame.sprite.Sprite):
         """
         this is the function that
         """
-
+        #
+        # if self.direction.magnitude() != 0:
+        #     self.direction = self.direction.x * speed
+        #
+        # self.rect.x += self.direction.x * speed
+        # self.colission("horizontal")
+        # self.rect.y += self.direction.y * speed
+        # self.collision("vertical")
+        #
         self.rect.center += self.direction * speed
 
-    def update_player_movement(self):
+    # def update_player_movement(self):
+    def update(self):
         """
         this function will update the players movement
         """

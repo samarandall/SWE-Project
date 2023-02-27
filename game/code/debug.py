@@ -12,7 +12,7 @@ pygame.init()
 font = pygame.font.Font(None, 30)
 
 
-def debug():
+def debug(info,y = 10, x = 10):
     """
     the main debugging function
     """

@@ -4,10 +4,12 @@ this is the level file
 this contains a level class and level class is the most important part of this game, everything that is in the level class will be rendered
 """
 
+
 import pygame
 from settings import *
 from tile_draw import TileDraw
 from player import Player
+from debug import debug
 
 
 class Level:
@@ -43,7 +45,7 @@ class Level:
                 if j == "x":
                     TileDraw((x, y), [self.visible_sprites, self.obstacle_sprites])
                 if j == "p":
-                    Player((x, y), [self.visible_sprites])
+                    self.player = Player((x, y), [self.visible_sprites])
 
     def run(self):
         """
@@ -51,3 +53,5 @@ class Level:
         """
 
         self.visible_sprites.draw(self.display_surface)
+        self.visible_sprites.update()
+        debug(self.player.direction)

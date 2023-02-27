@@ -54,4 +54,6 @@ class Level:
 
         self.visible_sprites.draw(self.display_surface)
         self.visible_sprites.update()
+
+        # need to get rid of this later
         debug(self.player.direction)

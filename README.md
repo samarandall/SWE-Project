@@ -13,4 +13,4 @@
 
 1. get player collisions working with obstacle sprite's
 2. figure out what our png's will look like
-3. is this working???? - Victor
+3. is this working???? - Victo

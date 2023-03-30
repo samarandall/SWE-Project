@@ -22,6 +22,6 @@ class TileDraw(pygame.sprite.Sprite):
 
         # these variables are always needed for sprites
         self.image = pygame.image.load(
-            "../graphics/map_assets/rock.png"
+            "../sprite_stuff/map_assets/rock.png"
         ).convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)

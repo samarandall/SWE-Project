@@ -25,3 +25,5 @@ class Tile(pygame.sprite.Sprite):
             "../sprite_stuff/map_assets/rock.png"
         ).convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
+        
+        self.hitbox = self.rect.inflate(0,-10)

@@ -7,7 +7,7 @@ this contains a level class and level class is the most important part of this g
 
 import pygame
 from settings import *
-from tile_draw import TileDraw
+from tile import Tile
 from player import Player
 from debug import debug
 
@@ -43,10 +43,10 @@ class Level:
                 y = index * TILESIZE
 
                 if j == "x":
-                    TileDraw((x, y), [self.visible_sprites, self.obstacle_sprites])
+                    Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
                 if j == "p":
                     self.player = Player(
-                        (x, y), [self.visible_sprites], [self.obstacle_sprites]
+                        (x, y), [self.visible_sprites], self.obstacle_sprites
                     )
 
     def run(self):

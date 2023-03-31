@@ -22,11 +22,11 @@ class Game:
 
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption("SWE PROJECT")
         self.clock = pygame.time.Clock()
 
         # setting the title of our game
-        pygame.display.set_caption("SWE PROJECT")
-
+        
         # if we want then we can set an icon as well
         # Icon = pygame.image.laod("some icon file")
         # pygame.display.set_icon(Icon)

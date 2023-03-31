@@ -6,7 +6,7 @@ import pygame
 from settings import *
 
 
-class TileDraw(pygame.sprite.Sprite):
+class Tile(pygame.sprite.Sprite):
     """
     this is the TileDraw class which inherets pygame sprite
     """

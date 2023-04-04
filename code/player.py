@@ -34,7 +34,8 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
 
         # giving speed of player
-        self.speed = 5
+        #self.speed = 5
+        self.speed = 7
 
         # making the obstacle sprites attribute
         self.obstacle_sprites = obstacle_sprites

@@ -21,7 +21,7 @@ class Game:
         """
 
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
         pygame.display.set_caption("SWE PROJECT")
         self.clock = pygame.time.Clock()
 

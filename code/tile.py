@@ -11,19 +11,13 @@ class Tile(pygame.sprite.Sprite):
     this is the TileDraw class which inherets pygame sprite
     """
 
-    def __init__(self, pos, groups):
+    def __init__(self, pos, groups, surf):
         """
         this function accepts a position and a sprite group, this shows where to place everything
         """
-
-        # this is needed to initialize sprites
-        # this initializes the TileDraw class
         super().__init__(groups)
-
-        # these variables are always needed for sprites
-        self.image = pygame.image.load(
-            "../sprite_stuff/map_assets/rock.png"
-        ).convert_alpha()
+        #self.sprite_type = sprite_type
+        self.image = surf
         self.rect = self.image.get_rect(topleft=pos)
-        
         self.hitbox = self.rect.inflate(0,-10)
+

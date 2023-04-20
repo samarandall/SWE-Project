@@ -11,6 +11,9 @@ from tile import Tile
 from player import Player
 #from debug import debug
 from pytmx.util_pygame import load_pygame
+from support import *
+from random import choice
+from weapon import Weapon
 
 class Level:
     """

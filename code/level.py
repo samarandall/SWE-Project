@@ -15,7 +15,8 @@ from pytmx.util_pygame import load_pygame
 from support import *
 from random import choice
 from weapon import Weapon
-from ui import UI
+
+# from ui import UI
 
 
 class Level:

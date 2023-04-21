@@ -113,6 +113,7 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_SPACE]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
+                self.create_attack()
                 print("attack")
 
             # how to use magic with left control

@@ -59,7 +59,11 @@ class Level:
                     for x, y, surf in layer.tiles():
                         pos = (x * TILESIZE, y * TILESIZE)
                         self.player = Player(
-                            pos, [self.visible_sprites], self.obstacle_sprites
+                            pos,
+                            [self.visible_sprites],
+                            self.obstacle_sprites,
+                            self.create_attack,
+                            self.destroy_attack,
                         )
                 else:
                     for x, y, surf in layer.tiles():
@@ -71,7 +75,13 @@ class Level:
                             groups=[self.visible_sprites, self.obstacle_sprites],
                         )
 
-        self.player = Player(pos, [self.visible_sprites], self.obstacle_sprites)
+        self.player = Player(
+            pos,
+            [self.visible_sprites],
+            self.obstacle_sprites,
+            self.create_attack,
+            self.destroy_attack,
+        )
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.visible_sprites])

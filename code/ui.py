@@ -18,3 +18,21 @@ class UI:
             path = weapon["graphic"]
             weapon = pygame.image.load(path).convert_alpha()
             self.weapon_graphics.append(weapon)
+
+    def show_bar(self, current, max_amount, bg_rect, color):
+        """
+        this function should show the bar for player information
+        """
+
+        # getting the backgroung
+        pygame.draw.rect(self.display_surface, UI_BG_COLOR, bg_rect)
+
+        # converting stat to pixel
+        ratio = current / max_amount
+        current_width = bg_rect.width * ratio
+        current_rect = bg_rect.copy()
+        current_rect.width = current_width
+
+        # drawing the actual bar itself
+        pygame.draw.rect(self.display_surface, color, current_rect)
+        pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, bg_rect, 3)

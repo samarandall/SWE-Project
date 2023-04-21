@@ -36,3 +36,21 @@ class UI:
         # drawing the actual bar itself
         pygame.draw.rect(self.display_surface, color, current_rect)
         pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, bg_rect, 3)
+
+    def show_exp(self, exp):
+        """
+        this function should show the experience for the player
+        """
+
+        # getting the text to work
+        text_surf = self.font.render(str(int(exp)), False, TEXT_COLOR)
+        x = self.display_surface.get_size()[0] - 20
+        y = self.display_surface.get_size()[1] - 20
+        text_rect = text_surf.get_rect(bottomright=(x, y))
+
+        # drawing the actual experience bar
+        pygame.draw.rect(self.display_surface, UI_BG_COLOR, text_rect.inflate(20, 20))
+        self.display_surface.blit(text_surf, text_rect)
+        pygame.draw.rect(
+            self.display_surface, UI_BORDER_COLOR, text_rect.inflate(20, 20), 3
+        )

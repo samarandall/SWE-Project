@@ -54,3 +54,12 @@ class UI:
         pygame.draw.rect(
             self.display_surface, UI_BORDER_COLOR, text_rect.inflate(20, 20), 3
         )
+
+    def selection_box(self, left, top, has_switched):
+        """
+        this should give the selection box for where to select and hit things
+        """
+
+        # making the background rectangle for the
+        bg_rect = pygame.Rect(left, top, ITEM_BOX_SIZE, ITEM_BOX_SIZE)
+        pygame.draw.rect(self.display_surface, UI_BG_COLOR, bg_rect)

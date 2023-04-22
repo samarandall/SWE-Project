@@ -15,6 +15,7 @@ from pytmx.util_pygame import load_pygame
 from support import *
 from random import choice
 from weapon import Weapon
+from ui import UI
 
 # from ui import UI
 
@@ -40,6 +41,9 @@ class Level:
 
         # for attacking sprites
         self.current_attack = None
+
+        # ui
+        self.ui = UI()
 
         # making the map
         self.make_map()
@@ -100,6 +104,7 @@ class Level:
 
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.ui.display(self.player)
 
         # need to get rid of this later
         # debug(self.player.direction)

@@ -59,3 +59,47 @@ class Enemy(Entity):
         # looping over the animations
         for i in self.animations.keys():
             self.animations[i] = import_folder(main_path + i)
+
+    def get_player_distance_direction(self, player):
+        """
+        this function will help determine where the player is in regards to the enemy
+        """
+
+        enemy_vec = pygame.math.Vector2(self.rect.center)
+        player_vec = pygame.math.Vector2(player.rect.center)
+        distance = (player_vec - enemy_vec).magnitude()
+
+        if distance > 0:
+            direction = (player_vec - enemy_vec).normalize()
+        else:
+            direction = pygame.math.Vector2()
+
+        return (distance, direction)
+
+    def get_status(self, player):
+        """
+        this shows whether the player is in distance or not
+        """
+
+        distance = self.get_player_distance_direction(player)[0]
+
+        if distance <= self.attack_radius and self.can_attack:
+            if self.status != "attack":
+                self.frame_index = 0
+            self.status = "attack"
+        elif distance <= self.notice_radius:
+            self.status = "move"
+        else:
+            self.status = "idle"
+
+    def actions(self, player):
+        """
+        actions depending on where the player is
+        """
+
+        if self.status == "attack":
+            self.attack_time = pygame.time.get_ticks()
+        elif self.status == "move":
+            self.direction = self.get_player_distance_direction(player)[1]
+        else:
+            self.direction = pygame.math.Vector2()

@@ -17,6 +17,7 @@ class Tile(pygame.sprite.Sprite):
         """
         this function accepts a position and a sprite group, this shows where to place everything
         """
+
         super().__init__(groups)
         self.sprite_type = sprite_type
 

@@ -1,5 +1,5 @@
 """
-this file will contain code to allow the player to have weapons    
+this file will contain code to allow the player to have weapons
 """
 
 import pygame

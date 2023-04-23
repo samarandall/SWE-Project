@@ -15,6 +15,9 @@ from pytmx.util_pygame import load_pygame
 from support import *
 from random import choice
 from weapon import Weapon
+from ui import UI
+
+# from ui import UI
 
 
 class Level:
@@ -34,10 +37,11 @@ class Level:
         self.visible_sprites = YSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
 
-        self.tmx_data = load_pygame("../data/tmx/map.tmx")
-
         # for attacking sprites
         self.current_attack = None
+
+        # ui
+        self.ui = UI()
 
         # making the map
         self.make_map()
@@ -46,37 +50,87 @@ class Level:
         """
         this is the function that will draw our map based off of the world map array in settings
         """
-        for layer in self.tmx_data.visible_layers:
-            if hasattr(layer, "data"):
-                print(layer.name)
-                if layer.name == "Floor":
-                    """for x,y,surf in layer.tiles():
-                    pos = (x * TILESIZE, y * TILESIZE)
-                    Tile(pos = pos, surf = surf, sprite_type='not', groups = [self.visible_sprites])
-                    """
-                    pass
-                elif layer.name == "Player":
-                    for x, y, surf in layer.tiles():
-                        pos = (x * TILESIZE, y * TILESIZE)
-                        self.player = Player(
-                            pos,
-                            [self.visible_sprites],
-                            self.obstacle_sprites,
-                            self.create_attack,
-                            self.destroy_attack,
-                        )
-                else:
-                    for x, y, surf in layer.tiles():
-                        pos = (x * TILESIZE, y * TILESIZE)
-                        Tile(
-                            pos=pos,
-                            surf=surf,
-                            sprite_type="not",
-                            groups=[self.visible_sprites, self.obstacle_sprites],
-                        )
 
+        # for layer in self.tmx_data.visible_layers:
+        #     if hasattr(layer, "data"):
+        #         print(layer.name)
+        #         if layer.name == "Floor":
+        #             """for x,y,surf in layer.tiles():
+        #             pos = (x * TILESIZE, y * TILESIZE)
+        #             Tile(pos = pos, surf = surf, sprite_type='not', groups = [self.visible_sprites])
+        #             """
+        #             pass
+        #         elif layer.name == "Player":
+        #             for x, y, surf in layer.tiles():
+        #                 pos = (x * TILESIZE, y * TILESIZE)
+        #                 self.player = Player(
+        #                     pos,
+        #                     [self.visible_sprites],
+        #                     self.obstacle_sprites,
+        #                     self.create_attack,
+        #                     self.destroy_attack,
+        #                 )
+        #         else:
+        #             for x, y, surf in layer.tiles():
+        #                 pos = (x * TILESIZE, y * TILESIZE)
+        #                 Tile(
+        #                     pos=pos,
+        #                     surf=surf,
+        #                     sprite_type="not",
+        #                     groups=[self.visible_sprites, self.obstacle_sprites],
+        #                 )
+
+        # self.player = Player(
+        #     pos,
+        #     [self.visible_sprites],
+        #     self.obstacle_sprites,
+        #     self.create_attack,
+        #     self.destroy_attack,
+        # )
+
+        # how the map is supposed to look
+        layouts = {
+            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
+            "grass": import_csv_layout("../map/map_Grass.csv"),
+            "object": import_csv_layout("../map/map_Objects.csv"),
+        }
+
+        # the actual graphics for the map
+        graphics = {
+            "grass": import_folder("../graphics/Grass"),
+            "objects": import_folder("../graphics/objects"),
+        }
+
+        # this iterates through and draws the map
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != "-1":
+                        x = col_index * TILESIZE
+                        y = row_index * TILESIZE
+                        if style == "boundary":
+                            Tile((x, y), [self.obstacle_sprites], "invisible")
+                        if style == "grass":
+                            random_grass_image = choice(graphics["grass"])
+                            Tile(
+                                (x, y),
+                                [self.visible_sprites, self.obstacle_sprites],
+                                "grass",
+                                random_grass_image,
+                            )
+
+                        if style == "object":
+                            surf = graphics["objects"][int(col)]
+                            Tile(
+                                (x, y),
+                                [self.visible_sprites, self.obstacle_sprites],
+                                "object",
+                                surf,
+                            )
+
+        # making changes to the player instance
         self.player = Player(
-            pos,
+            (2000, 1430),
             [self.visible_sprites],
             self.obstacle_sprites,
             self.create_attack,
@@ -98,6 +152,7 @@ class Level:
 
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.ui.display(self.player)
 
         # need to get rid of this later
         # debug(self.player.direction)
@@ -111,7 +166,10 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
-        self.floor_surf = pygame.image.load("../data/floor/floor.png").convert()
+        # this is the old way that was breaking the game
+        # self.floor_surf = pygame.image.load("../data/floor/floor.png").convert()
+
+        self.floor_surf = pygame.image.load("../graphics/tilemap/ground.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):

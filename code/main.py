@@ -26,7 +26,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # setting the title of our game
-        
+
         # if we want then we can set an icon as well
         # Icon = pygame.image.laod("some icon file")
         # pygame.display.set_icon(Icon)

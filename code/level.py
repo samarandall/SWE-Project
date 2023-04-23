@@ -11,7 +11,7 @@ from tile import Tile
 from player import Player
 
 # from debug import debug
-from pytmx.util_pygame import load_pygame
+# from pytmx.util_pygame import load_pygame
 from support import *
 from random import choice
 from weapon import Weapon
@@ -135,6 +135,7 @@ class Level:
             self.obstacle_sprites,
             self.create_attack,
             self.destroy_attack,
+            self.create_magic,
         )
 
     def create_attack(self):
@@ -144,6 +145,11 @@ class Level:
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
+
+    def create_magic(self, style, strength, cost):
+        print(style)
+        print(strength)
+        print(cost)
 
     def run(self):
         """

@@ -237,7 +237,7 @@ class Player(Entity):
 
         # checking if the player can switch magic
         if not self.can_switch_magic:
-            if current_time - self.maic_switch_time >= self.switch_duration_cooldown:
+            if current_time - self.magic_switch_time >= self.switch_duration_cooldown:
                 self.can_switch_magic = True
 
         # checking if the player is vulnerable or not

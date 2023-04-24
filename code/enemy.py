@@ -97,9 +97,54 @@ class Enemy(Entity):
         actions depending on where the player is
         """
 
+        # checking what the status is and deciding based off that what the player can do
         if self.status == "attack":
             self.attack_time = pygame.time.get_ticks()
         elif self.status == "move":
             self.direction = self.get_player_distance_direction(player)[1]
         else:
             self.direction = pygame.math.Vector2()
+
+    def animate(self):
+        """
+        actually animating everything
+        """
+
+        animation = self.animations[self.status]
+        self.frame_index += self.animation_speed
+
+        # checking what the enemy can do or not
+        if self.frame_index >= len(animation):
+            if self.status == "attack":
+                self.can_attack = False
+            self.frame_index = 0
+
+        self.image = animation[int(self.frame_index)]
+        self.rect = self.image.get_rect(center=self.hitbox.center)
+
+    def cooldown(self):
+        """
+        there needs to be cooldown between attacks and this covers that
+        """
+
+        if not self.can_attack:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.attack_time >= self.attack_cooldown:
+                self.can_attack = True
+
+    def update(self):
+        """
+        updating the enemy movement
+        """
+
+        self.move(self.speed)
+        self.animate()
+        self.cooldown()
+
+    def enemy_update(self, player):
+        """
+        updating enemy status
+        """
+
+        self.get_status(player)
+        self.actions(player)

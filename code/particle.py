@@ -99,4 +99,4 @@ class ParticleEffect(pygame.sprite.Sprite):
             self.image = self.frames[int(self.frame_index)]
 
     def update(self):
-        self.animate
+        self.animate()

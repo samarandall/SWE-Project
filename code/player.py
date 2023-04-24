@@ -278,6 +278,28 @@ class Player(Entity):
         # returning the calculated weapon damage based off the weapon
         return base_damage + weapon_damage
 
+    def get_full_magic_damage(self):
+        """
+        this works like the weapon damage function to get the damage for the weapon
+        """
+
+        # this is calculating the damage based off the spell
+        base_damage = self.stats["magic"]
+        spell_damage = magic_data[self.magic]["strength"]
+
+        # returning the calculated spell damage based off the spell
+        return base_damage + spell_damage
+
+    def energy_recovery(self):
+        """
+        recovering energy after spending it over time
+        """
+
+        if self.energy < self.stats["energy"]:
+            self.energy += 0.01 * self.stats["magic"]
+        else:
+            self.energy = self.stats["energy"]
+
     # def update_player_movement(self):
     def update(self):
         """
@@ -289,3 +311,4 @@ class Player(Entity):
         self.get_status()
         self.animate()
         self.move(self.speed)
+        self.energy_recovery()

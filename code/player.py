@@ -7,9 +7,10 @@ This is similair to the TileDraw class
 import pygame
 from settings import *
 from support import import_folder
+from entity import Entity
 
 
-class Player(pygame.sprite.Sprite):
+class Player(Entity):
     """
     this is the Player class which inherets pygame sprite
     """

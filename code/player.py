@@ -72,6 +72,11 @@ class Player(Entity):
         self.can_switch_magic = True
         self.magic_switch_time = None
 
+        # damage to enemies stuff
+        self.vulnerable = True
+        self.hurt_time = None
+        self.invulnerability_duration = 500
+
     def import_player_assets(self):
         character_path = "../graphics/player/"
         self.animations = {
@@ -235,15 +240,43 @@ class Player(Entity):
             if current_time - self.maic_switch_time >= self.switch_duration_cooldown:
                 self.can_switch_magic = True
 
+        # checking if the player is vulnerable or not
+        if not self.vulnerable:
+            if current_time - self.hurt_time >= self.invulnerability_duration:
+                self.vulnerable = True
+
     def animate(self):
         animation = self.animations[self.status]
 
+        # frame index loop
         self.frame_index += self.animation_speed
         if self.frame_index >= len(animation):
             self.frame_index = 0
 
+        # setting the image for the player
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center=self.hitbox.center)
+
+        # flicker
+        if not self.vulnerable:
+            alpha = self.wave_value()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
+
+    def get_full_weapon_damage(self):
+        """
+        this will make it so that the enemies recieve damage from the weapons
+
+        this is based off of what type of weapon it is
+        """
+
+        # this is calculating the damage based off the weapon
+        base_damage = self.stats["attack"]
+        weapon_damage = weapon_data[self.weapon]["damage"]
+
+        # returning the calculated weapon damage based off the weapon
+        return base_damage + weapon_damage
 
     # def update_player_movement(self):
     def update(self):

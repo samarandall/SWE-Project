@@ -34,6 +34,11 @@ class Game:
         # making the level
         self.level_one = Level()
 
+        #OST
+        main_sound  = pygame.mixer.Sound('../audio/main_ost.ogg')
+        main_sound.set_volume(0.7)
+        main_sound.play(loops=-1)
+
     def run(self):
         """
         this is the initial running of the game
@@ -45,7 +50,7 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.screen.fill("black")
+            self.screen.fill(WATER_COLOR)
             self.level_one.run()
             pygame.display.update()
             self.clock.tick(FPS)

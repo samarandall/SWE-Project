@@ -77,6 +77,10 @@ class Player(Entity):
         self.hurt_time = None
         self.invulnerability_duration = 500
 
+        #attack sounds
+        self.sword_attack_sound = pygame.mixer.Sound('../audio/sword.wav')
+        self.sword_attack_sound.set_volume(0.6)
+
     def import_player_assets(self):
         character_path = "../graphics/player/"
         self.animations = {
@@ -135,6 +139,7 @@ class Player(Entity):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
+                self.sword_attack_sound.play()
                 print("attack")
 
             # how to use magic with left control

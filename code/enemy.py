@@ -17,6 +17,7 @@ class Enemy(Entity):
         obstacle_sprites,
         damage_player,
         trigger_death_particles,
+        add_exp,
     ):
         """
         setting up the init for our enemies to be initialized

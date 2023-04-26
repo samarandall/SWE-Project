@@ -42,7 +42,7 @@ monster_data = {
     },
     "raccoon": {
         "health": 300,
-        "exp": 250,
+        "exp": 100,
         "damage": 40,
         "attack_type": "claw",
         "attack_sound": "../audio/attack/claw.wav",
@@ -53,7 +53,7 @@ monster_data = {
     },
     "spirit": {
         "health": 100,
-        "exp": 110,
+        "exp": 60,
         "damage": 8,
         "attack_type": "thunder",
         "attack_sound": "../audio/attack/fireball.wav",
@@ -64,7 +64,7 @@ monster_data = {
     },
     "bamboo": {
         "health": 70,
-        "exp": 120,
+        "exp": 40,
         "damage": 6,
         "attack_type": "leaf_attack",
         "attack_sound": "../audio/attack/slash.wav",

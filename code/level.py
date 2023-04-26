@@ -168,6 +168,7 @@ class Level:
                                     self.obstacle_sprites,
                                     self.damage_player,
                                     self.trigger_death_particles,
+                                    
                                 )
 
     def create_attack(self):

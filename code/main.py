@@ -319,6 +319,9 @@ class Game:
         self.screen.blit(move, move_rect)
         self.screen.blit(move_control, move_control_rect)
         pygame.display.update()
+    
+    def play_main_sound(self):
+        self.main_sound.play(loops=-1)
 
     def play_main_sound(self):
         self.main_sound.play(loops=-1)

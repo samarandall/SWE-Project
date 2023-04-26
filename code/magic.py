@@ -14,6 +14,12 @@ class MagicPlayer:
         """
 
         self.animation_player = animation_player
+        self.sounds = {
+            "heal": pygame.mixer.Sound("../audio/heal.wav"),
+            "flame": pygame.mixer.Sound("../audio/fire.wav"),
+        }
+        for x in self.sounds.values():
+            x.set_volume(0.6)
 
     def heal(self, player, strength, cost, groups):
         """
@@ -22,6 +28,7 @@ class MagicPlayer:
 
         # player can only use spell if energy is over the cost amount
         if player.energy >= cost:
+            self.sounds["heal"].play()
             player.health = player.health + strength
             player.energy = player.energy - cost
 
@@ -40,6 +47,7 @@ class MagicPlayer:
 
         # checking if player has enough cost for flame
         if player.energy >= cost:
+            self.sounds["flame"].play()
             if player.status.split("_")[0] == "right":
                 direction = pygame.math.Vector2(1, 0)
             elif player.status.split("_")[0] == "left":

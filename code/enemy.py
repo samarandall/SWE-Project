@@ -67,6 +67,16 @@ class Enemy(Entity):
         self.hit_time = None
         self.invincibility_duration = 300
 
+        # Enemy sounds
+        self.sounds = {
+            "death": pygame.mixer.Sound("../audio/death.wav"),
+            "damage": pygame.mixer.Sound("../audio/hit.wav"),
+        }
+        for x in self.sounds.values():
+            x.set_volume(0.4)
+        self.attack_sound = pygame.mixer.Sound(monster_info["attack_sound"])
+        self.attack_sound.set_volume(0.6)
+
     def import_graphics(self, name):
         """
         this imports all the graphics that we need for the monsters
@@ -123,6 +133,7 @@ class Enemy(Entity):
         if self.status == "attack":
             self.attack_time = pygame.time.get_ticks()
             self.damage_player(self.attack_damage, self.attack_type)
+            self.attack_sound.play()
         elif self.status == "move":
             self.direction = self.get_player_distance_direction(player)[1]
         else:
@@ -175,6 +186,7 @@ class Enemy(Entity):
         """
 
         if self.vulnerable:
+            self.sounds["damage"].play()
             self.direction = self.get_player_distance_direction(player)[1]
             if attack_type == "weapon":
                 self.health -= player.get_full_weapon_damage()
@@ -194,6 +206,7 @@ class Enemy(Entity):
             self.kill()
             self.trigger_death_particles(self.rect.center, self.monster_name)
             self.add_exp(self.exp)
+            self.sounds["death"].play()
 
     def hit_reaction(self):
         """

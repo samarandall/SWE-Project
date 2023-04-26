@@ -8,6 +8,7 @@ import pygame
 from settings import *
 from support import import_folder
 from entity import Entity
+import time
 
 
 class Player(Entity):
@@ -299,6 +300,31 @@ class Player(Entity):
             self.energy += 0.01 * self.stats["magic"]
         else:
             self.energy = self.stats["energy"]
+
+    def get_damage(self, enemy, attack):
+        """
+        this is to get the damage from the enemy
+        """
+
+        if self.vulnerable:
+            self.direction = self.get_player_distance_direction(enemy)[1]
+            if attack == "weapon":
+                self.health -= enemy.get_full_weapon_damage()
+            else:
+                self.health = self.health - enemy.get_full_magic_damage()
+            self.hit_time = pygame.time.get_ticks()
+            self.vulnerable = False
+
+    def check_death(self):
+        """
+        killing enemy when health less than 0
+
+        this works very similary to the player health damage death
+        """
+
+        if self.health <= 0:
+            self.kill()
+            self.trigger_death_particles(self.rect.center, self.monster_name)
 
     # def update_player_movement(self):
     def update(self):

@@ -235,9 +235,34 @@ class Level:
                                 self.player, attack_sprite.sprite_type
                             )
 
+    def enemy_attack_logic(self):
+        """
+        how the enemy attacks will work with the player
+        """
+
+        if self.attack_sprites:
+            for attack_sprite in self.attack_sprites:
+                collision_sprites = pygame.sprite.spritecollide(
+                    attack_sprite, self.attackable_sprites, False
+                )
+                if collision_sprites:
+                    for target_sprite in collision_sprites:
+                        if target_sprite.sprite_type == "grass":
+                            pos = target_sprite.rect.center
+                            offset = pygame.math.Vector2(0, 75)
+                            for i in range(randint(3, 6)):
+                                self.animation_player.create_grass_particles(
+                                    pos - offset, [self.visible_sprites]
+                                )
+                            target_sprite.kill()
+                        else:
+                            target_sprite.get_damage(
+                                self.player, attack_sprite.sprite_type
+                            )
+
     def damage_player(self, amount, attack_type):
         """
-        how the enemy takes damage from the player
+        how the player takes damage from the enemy
         """
 
         if self.player.vulnerable:

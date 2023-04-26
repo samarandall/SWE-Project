@@ -301,6 +301,12 @@ class Level:
     def update_game_state(self, state):
         self.player.update_game_state(state)
 
+    def health_status(self):
+        if self.player.health < 50:
+            return True
+        else:
+            return False
+
     def add_exp(self, amount):
         """
         this function adds the player score with the amount they get for killing an enemy

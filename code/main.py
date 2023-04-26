@@ -37,45 +37,60 @@ class Game:
 
 
     def draw_start_menu(self):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((43, 26, 7))
         title_font = pygame.font.Font('../graphics/font/joystix.ttf', 60)
-        button_font = pygame.font.Font('../graphics/font/joystix.ttf', 40)
-        title = title_font.render('The Battle for Sugar Rush', True, (255, 255, 255))
+        start_font = pygame.font.Font('../graphics/font/joystix.ttf', 40)
+        enter_font = pygame.font.Font('../graphics/font/joystix.ttf', 15)
+        title = title_font.render('The Battle for Sugar Rush', True, (205, 86, 156))
         title_rect = title.get_rect()
-        title_rect.center = (self.screen_width // 2, self.screen_height // 2)
-        start_button = button_font.render('Start', True, (255, 255, 255))
+        title_rect.center = (self.screen_width // 2, (self.screen_height // 2) - (self.screen_height // 8))
+        start_button = start_font.render('Start', True, (255, 255, 255))
         start_button_rect = start_button.get_rect()
         start_button_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 4))
+        enter = enter_font.render('(Enter)', True, (205, 86, 156))
+        enter_rect = enter.get_rect()
+        enter_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 3))
         self.screen.blit(title, title_rect)
         self.screen.blit(start_button, start_button_rect)
+        self.screen.blit(enter, enter_rect)
         pygame.display.update()
     
     def draw_pause_menu(self):
-        self.screen.fill((0, 0, 0))
-        title_font = pygame.font.Font('../graphics/font/joystix.ttf', 60)
-        button_font = pygame.font.Font('../graphics/font/joystix.ttf', 40)
-        title = title_font.render('PAUSE', True, (255, 255, 255))
+        self.screen.fill((43, 26, 7))
+        title_font = pygame.font.Font('../graphics/font/joystix.ttf', 80)
+        button_font = pygame.font.Font('../graphics/font/joystix.ttf', 60)
+        r_font = pygame.font.Font('../graphics/font/joystix.ttf', 25)
+        title = title_font.render('PAUSED', True, (205, 86, 156))
         title_rect = title.get_rect()
-        title_rect.center = (self.screen_width // 2, self.screen_height // 2)
+        title_rect.center = (self.screen_width // 2, (self.screen_height // 2) - (self.screen_height // 8))
         resume_button = button_font.render('Resume', True, (255, 255, 255))
         resume_button_rect = resume_button.get_rect()
         resume_button_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 4))
+        r = r_font.render('(r)', True, (205, 86, 156))
+        r_rect = r.get_rect()
+        r_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 3))
         self.screen.blit(title, title_rect)
         self.screen.blit(resume_button, resume_button_rect)
+        self.screen.blit(r, r_rect)
         pygame.display.update()
     
     def draw_game_over(self):
-        self.screen.fill((0, 0, 0))
-        title_font = pygame.font.Font('../graphics/font/joystix.ttf', 60)
+        self.screen.fill((43, 26, 7))
+        title_font = pygame.font.Font('../graphics/font/joystix.ttf', 80)
         button_font = pygame.font.Font('../graphics/font/joystix.ttf', 40)
-        title = title_font.render('GAME OVER', True, (255, 255, 255))
+        enter_font = pygame.font.Font('../graphics/font/joystix.ttf', 15)
+        title = title_font.render('GAME OVER', True, (159, 0, 24))
         title_rect = title.get_rect()
-        title_rect.center = (self.screen_width // 2, self.screen_height // 2)
+        title_rect.center = (self.screen_width // 2, (self.screen_height // 2) - (self.screen_height // 8))
         start_menu = button_font.render('Start Menu', True, (255, 255, 255))
         start_menu_rect = start_menu.get_rect()
         start_menu_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 4))
+        enter = enter_font.render('(Space)', True, (205, 86, 156))
+        enter_rect = enter.get_rect()
+        enter_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 3))
         self.screen.blit(title, title_rect)
         self.screen.blit(start_menu, start_menu_rect)
+        self.screen.blit(enter, enter_rect)
         pygame.display.update()
         
 
@@ -97,12 +112,14 @@ class Game:
                     self.screen = pygame.display.set_mode((self.screen_width, self.screen_height), pygame.RESIZABLE)
             if self.game_state == 'start_menu':
                 self.draw_start_menu()
-                if keys[pygame.K_SPACE]:
+                if keys[pygame.K_RETURN]:
+                    self.level_one = Level()
                     self.level_one.update_game_state('game')
             elif self.game_state == 'pause':
-                asleep = True
                 self.draw_pause_menu()
-                if keys[pygame.K_SPACE]:
+                self.level_one.pause_the_level()
+                if keys[pygame.K_r]:
+                    self.level_one.unpause_the_level()
                     self.level_one.update_game_state('game')
                 if keys[pygame.K_ESCAPE]:
                     self.level_one.update_game_state('start_menu')

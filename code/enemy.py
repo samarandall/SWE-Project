@@ -17,6 +17,7 @@ class Enemy(Entity):
         obstacle_sprites,
         damage_player,
         trigger_death_particles,
+        add_exp,
     ):
         """
         setting up the init for our enemies to be initialized
@@ -59,19 +60,21 @@ class Enemy(Entity):
         self.attack_cooldown = 400
         self.damage_player = damage_player
         self.trigger_death_particles = trigger_death_particles
+        self.add_exp = add_exp
 
         # invincibility timer for the enemies
         self.vulnerable = True
         self.hit_time = None
         self.invincibility_duration = 300
 
-        #Enemy sounds
+        # Enemy sounds
         self.sounds = {
-            'death': pygame.mixer.Sound('../audio/death.wav'),
-            'damage':pygame.mixer.Sound('../audio/hit.wav')
+            "death": pygame.mixer.Sound("../audio/death.wav"),
+            "damage": pygame.mixer.Sound("../audio/hit.wav"),
         }
-        for x in self.sounds.values() : x.set_volume(0.4)
-        self.attack_sound = pygame.mixer.Sound(monster_info['attack_sound'])
+        for x in self.sounds.values():
+            x.set_volume(0.4)
+        self.attack_sound = pygame.mixer.Sound(monster_info["attack_sound"])
         self.attack_sound.set_volume(0.6)
 
     def import_graphics(self, name):
@@ -183,7 +186,7 @@ class Enemy(Entity):
         """
 
         if self.vulnerable:
-            self.sounds['damage'].play()
+            self.sounds["damage"].play()
             self.direction = self.get_player_distance_direction(player)[1]
             if attack_type == "weapon":
                 self.health -= player.get_full_weapon_damage()
@@ -202,7 +205,8 @@ class Enemy(Entity):
         if self.health <= 0:
             self.kill()
             self.trigger_death_particles(self.rect.center, self.monster_name)
-            self.sounds['death'].play()
+            self.add_exp(self.exp)
+            self.sounds["death"].play()
 
     def hit_reaction(self):
         """

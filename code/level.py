@@ -18,6 +18,7 @@ from ui import UI
 from enemy import Enemy
 from particle import AnimationPlayer
 from magic import MagicPlayer
+import random
 
 
 class Level:
@@ -56,6 +57,32 @@ class Level:
 
         # Is the Level Paused
         self.pause = False
+
+        # for spawning enemies in the game every 3 seconds
+        # 3000 milliseconds is 3 seconds
+        self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
+        # pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 3000)
+        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 200)
+        self.enemy_list = ["bamboo", "spirit", "raccoon", "squid"]
+        self.enemies = []
+
+    def spawn_enemy(self):
+        x = random.randint(0, WIDTH - 5)
+        y = random.randint(0, HEIGHT - 1)
+        monster_name = random.choice(self.enemy_list)
+        new_enemy = Enemy(
+            monster_name,
+            (x, y),
+            [self.visible_sprites, self.attackable_sprites],
+            self.obstacle_sprites,
+            self.damage_player,
+            self.trigger_death_particles,
+            self.add_exp,
+        )
+        self.enemies.append(new_enemy)
+
+        for enemy in self.enemies:
+            enemy.spawn_update()
 
     def make_map(self):
         """
@@ -172,63 +199,6 @@ class Level:
                                     self.trigger_death_particles,
                                     self.add_exp,
                                 )
-
-    def draw_enemies(self):
-        """
-        this will be trying to redraw the enemies every so many seconds
-        """
-
-        layouts = {
-            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
-            "grass": import_csv_layout("../map/map_Grass.csv"),
-            "object": import_csv_layout("../map/map_Objects.csv"),
-            "entities": import_csv_layout("../map/map_Entities.csv"),
-        }
-
-        # the graphics for the map
-        graphics = {
-            "grass": import_folder("../graphics/Grass"),
-            "objects": import_folder("../graphics/objects"),
-        }
-
-        # this iterates through and draws the map
-        for style, layout in layouts.items():
-            for row_index, row in enumerate(layout):
-                for col_index, col in enumerate(row):
-                    if col != "-1":
-                        x = col_index * TILESIZE
-                        y = row_index * TILESIZE
-                        if style == "entities":
-                            if col == "394":
-                                self.player = Player(
-                                    (x, y),
-                                    [self.visible_sprites],
-                                    self.obstacle_sprites,
-                                    self.create_attack,
-                                    self.destroy_attack,
-                                    self.create_magic,
-                                )
-                            else:
-                                if col == "390":
-                                    monster_name = "bamboo"
-                                elif col == "391":
-                                    monster_name = "spirit"
-                                elif col == "392":
-                                    monster_name = "raccoon"
-                                else:
-                                    monster_name = "squid"
-                                Enemy(
-                                    monster_name,
-                                    (x, y),
-                                    [self.visible_sprites, self.attackable_sprites],
-                                    self.obstacle_sprites,
-                                    self.damage_player,
-                                    self.trigger_death_particles,
-                                    self.add_exp,
-                                )
-            print(
-                "ENEMIES ******************************************************************************************************************"
-            )
 
     def create_attack(self):
         """

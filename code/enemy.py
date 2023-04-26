@@ -141,7 +141,7 @@ class Enemy(Entity):
 
     def animate(self):
         """
-        actually animating everything
+        actually animating everything and drawing the enemies
         """
 
         animation = self.animations[self.status]
@@ -226,6 +226,20 @@ class Enemy(Entity):
         self.animate()
         self.cooldown()
         self.check_death()
+
+    def spawn_update(self):
+        """
+        this should update and draw the new enemy without repeating unneeded action that happen in the regular update method
+
+        Unneeded actions:
+            hit reactions
+            movement
+            cooldown
+            checking for death
+        """
+        # self.move(self.speed)
+        self.animate()
+        # self.cooldown()
 
     def enemy_update(self, player):
         """

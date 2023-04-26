@@ -8,6 +8,8 @@ main function which will run our game
 import pygame, sys
 from settings import *
 from level import Level
+from enemy import Enemy
+import random
 
 
 class Game:
@@ -29,6 +31,10 @@ class Game:
             "SWE PROJECT - The Battle for Sugar Rush : Dallas Gere, Sam Randall, Victor Ekpenyong"
         )
         self.clock = pygame.time.Clock()
+
+        # spawning in enemies every 3 seconds
+        self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 3000)
 
         # setting the title of our game
 
@@ -282,6 +288,10 @@ class Game:
                     self.screen = pygame.display.set_mode(
                         (self.screen_width, self.screen_height), pygame.RESIZABLE
                     )
+                elif event.type == self.SPAWN_ENEMY_EVENT:
+                    # if it has been 3 seconds and it it time to spawn in a new enemy
+                    self.level_one.spawn_enemy()
+
             if self.game_state == "start_menu":
                 self.draw_start_menu()
                 if keys[pygame.K_RETURN]:

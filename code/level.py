@@ -174,6 +174,63 @@ class Level:
                                     self.add_exp,
                                 )
 
+    def draw_enemies(self):
+        """
+        this will be trying to redraw the enemies every so many seconds
+        """
+
+        layouts = {
+            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
+            "grass": import_csv_layout("../map/map_Grass.csv"),
+            "object": import_csv_layout("../map/map_Objects.csv"),
+            "entities": import_csv_layout("../map/map_Entities.csv"),
+        }
+
+        # the graphics for the map
+        graphics = {
+            "grass": import_folder("../graphics/Grass"),
+            "objects": import_folder("../graphics/objects"),
+        }
+
+        # this iterates through and draws the map
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != "-1":
+                        x = col_index * TILESIZE
+                        y = row_index * TILESIZE
+                        if style == "entities":
+                            if col == "394":
+                                self.player = Player(
+                                    (x, y),
+                                    [self.visible_sprites],
+                                    self.obstacle_sprites,
+                                    self.create_attack,
+                                    self.destroy_attack,
+                                    self.create_magic,
+                                )
+                            else:
+                                if col == "390":
+                                    monster_name = "bamboo"
+                                elif col == "391":
+                                    monster_name = "spirit"
+                                elif col == "392":
+                                    monster_name = "raccoon"
+                                else:
+                                    monster_name = "squid"
+                                Enemy(
+                                    monster_name,
+                                    (x, y),
+                                    [self.visible_sprites, self.attackable_sprites],
+                                    self.obstacle_sprites,
+                                    self.damage_player,
+                                    self.trigger_death_particles,
+                                    self.add_exp,
+                                )
+            print(
+                "ENEMIES ******************************************************************************************************************"
+            )
+
     def create_attack(self):
         """
         this creates an attack on keypress
@@ -278,9 +335,6 @@ class Level:
             self.visible_sprites.enemy_update(self.player)
             self.player_attack_logic()
             self.ui.display(self.player)
-
-        # need to get rid of this later
-        # debug(self.player.direction)
 
     def pause_the_level(self):
         self.pause = True

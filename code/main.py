@@ -161,12 +161,19 @@ class Game:
         pause_rect = pause.get_rect()
         pause_rect.center = ((self.screen_width // 2) + (self.screen_width // 16), (self.screen_height // 4) + (self.screen_height // 2.5))
 
+        move_control = text_font.render('(arrow-keys)', True, (205, 86, 156))
+        move = text_font.render('Move Player', True, (255, 255, 255))
+        move_control_rect = move_control.get_rect()
+        move_control_rect.center = ((self.screen_width // 2) - (self.screen_width // 16), (self.screen_height // 4) + (self.screen_height // 2))
+        move_rect = move.get_rect()
+        move_rect.center = ((self.screen_width // 2) + (self.screen_width // 16), (self.screen_height // 4) + (self.screen_height // 2))
+
         start_menu = button_font.render('Start Menu', True, (255, 255, 255))
         start_menu_rect = start_menu.get_rect()
-        start_menu_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 4))
-        enter = enter_font.render('(Space)', True, (205, 86, 156))
+        start_menu_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 3))
+        enter = enter_font.render('(Esc)', True, (205, 86, 156))
         enter_rect = enter.get_rect()
-        enter_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 3))
+        enter_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 2.5))
         self.screen.blit(title, title_rect)
         self.screen.blit(start_menu, start_menu_rect)
         self.screen.blit(enter, enter_rect)
@@ -180,6 +187,8 @@ class Game:
         self.screen.blit(switch_spell, switch_spell_rect)
         self.screen.blit(pause, pause_rect)
         self.screen.blit(pause_control, pause_control_rect)
+        self.screen.blit(move, move_rect)
+        self.screen.blit(move_control, move_control_rect)
         pygame.display.update()
         
 
@@ -220,7 +229,7 @@ class Game:
                     self.level_one.update_game_state('start_menu')
             elif self.game_state == 'controls':
                 self.draw_controls()
-                if keys[pygame.K_SPACE]:
+                if keys[pygame.K_ESCAPE]:
                     self.level_one.update_game_state('start_menu')
             else:
                 self.screen.fill(WATER_COLOR)

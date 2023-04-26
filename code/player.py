@@ -77,12 +77,12 @@ class Player(Entity):
         self.hurt_time = None
         self.invulnerability_duration = 500
 
-        #attack sounds
-        self.sword_attack_sound = pygame.mixer.Sound('../audio/sword.wav')
+        # attack sounds
+        self.sword_attack_sound = pygame.mixer.Sound("../audio/sword.wav")
         self.sword_attack_sound.set_volume(0.6)
 
-        self.game_state = 'start_menu'
-    
+        self.game_state = "start_menu"
+
     def import_player_assets(self):
         character_path = "../graphics/player/"
         self.animations = {
@@ -106,10 +106,9 @@ class Player(Entity):
 
     def get_game_state(self):
         return self.game_state
-    
+
     def update_game_state(self, state):
         self.game_state = state
-
 
     def keyboard_input(self):
         """
@@ -187,10 +186,10 @@ class Player(Entity):
                     self.weapon_index = 0
 
                 self.weapon = list(weapon_data.keys())[self.weapon_index]
-            
+
             # back to game menu
             if keys[pygame.K_p]:
-                self.game_state = 'pause'
+                self.game_state = "pause"
 
     def move(self, speed):
         """
@@ -317,7 +316,6 @@ class Player(Entity):
             self.energy += 0.01 * self.stats["magic"]
         else:
             self.energy = self.stats["energy"]
-
 
     # def update_player_movement(self):
     def update(self):

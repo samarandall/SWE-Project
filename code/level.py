@@ -251,11 +251,14 @@ class Level:
                 attack_type, self.player.rect.center, [self.visible_sprites]
             )
         if self.player.health <= 0:
-            self.update_game_state('game_over')
+            self.update_game_state("game_over")
+
     def get_game_state(self):
         return self.player.get_game_state()
+
     def update_game_state(self, state):
         self.player.update_game_state(state)
+
     def run(self):
         """
         this method will update and draw the game
@@ -269,9 +272,10 @@ class Level:
 
         # need to get rid of this later
         # debug(self.player.direction)
+
     def pause_the_level(self):
         self.pause = True
-    
+
     def unpause_the_level(self):
         self.pause = False
 

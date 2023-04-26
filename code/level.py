@@ -237,7 +237,7 @@ class Level:
 
     def damage_player(self, amount, attack_type):
         """
-        how the enemy takes damage from the player
+        how the player takes damage from the enemy
         """
 
         if self.player.vulnerable:

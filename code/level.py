@@ -171,6 +171,7 @@ class Level:
                                     self.obstacle_sprites,
                                     self.damage_player,
                                     self.trigger_death_particles,
+                                    self.add_exp,
                                 )
 
     def create_attack(self):
@@ -258,6 +259,14 @@ class Level:
 
     def update_game_state(self, state):
         self.player.update_game_state(state)
+
+    def add_exp(self, amount):
+        """
+        this function adds the player score with the amount they get for killing an enemy
+        """
+
+        # communicating with the player class to add an extra amount
+        self.player.exp += amount
 
     def run(self):
         """

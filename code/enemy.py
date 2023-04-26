@@ -193,6 +193,7 @@ class Enemy(Entity):
         if self.health <= 0:
             self.kill()
             self.trigger_death_particles(self.rect.center, self.monster_name)
+            self.add_exp(self.exp)
 
     def hit_reaction(self):
         """

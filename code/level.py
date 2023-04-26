@@ -168,7 +168,7 @@ class Level:
                                     self.obstacle_sprites,
                                     self.damage_player,
                                     self.trigger_death_particles,
-                                    
+                                    self.add_exp,
                                 )
 
     def create_attack(self):
@@ -248,6 +248,14 @@ class Level:
             self.animation_player.create_particles(
                 attack_type, self.player.rect.center, [self.visible_sprites]
             )
+
+    def add_exp(self, amount):
+        """
+        this function adds the player score with the amount they get for killing an enemy
+        """
+
+        # communicating with the player class to add an extra amount
+        self.player.exp += amount
 
     def run(self):
         """

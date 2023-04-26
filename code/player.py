@@ -148,7 +148,6 @@ class Player(Entity):
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
                 self.sword_attack_sound.play()
-                print("attack")
 
             # how to use magic with left control
             if keys[pygame.K_LCTRL]:
@@ -176,7 +175,6 @@ class Player(Entity):
 
             # key input for weapons
             if keys[pygame.K_q] and self.can_switch_weapon:
-                print("weapon")
                 self.can_switch_weapon = False
                 self.weapon_switch_time = pygame.time.get_ticks()
 

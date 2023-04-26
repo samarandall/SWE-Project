@@ -10,7 +10,6 @@ from settings import *
 from tile import Tile
 from player import Player
 
-# from debug import debug
 # from pytmx.util_pygame import load_pygame
 from support import *
 from random import choice, randint
@@ -329,6 +328,7 @@ class Level:
         """
         this method will update and draw the game
         """
+
         if self.pause != True:
             self.visible_sprites.custom_draw(self.player)
             self.visible_sprites.update()

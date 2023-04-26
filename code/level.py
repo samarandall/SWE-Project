@@ -55,6 +55,9 @@ class Level:
         # magic animations
         self.magic_player = MagicPlayer(self.animation_player)
 
+        # Is the Level Paused
+        self.pause = False
+
     def make_map(self):
         """
         this is the function that will draw our map based off of the world map array in settings
@@ -247,20 +250,30 @@ class Level:
             self.animation_player.create_particles(
                 attack_type, self.player.rect.center, [self.visible_sprites]
             )
-
+        if self.player.health <= 0:
+            self.update_game_state('game_over')
+    def get_game_state(self):
+        return self.player.get_game_state()
+    def update_game_state(self, state):
+        self.player.update_game_state(state)
     def run(self):
         """
         this method will update and draw the game
         """
-
-        self.visible_sprites.custom_draw(self.player)
-        self.visible_sprites.update()
-        self.visible_sprites.enemy_update(self.player)
-        self.player_attack_logic()
-        self.ui.display(self.player)
+        if self.pause != True:
+            self.visible_sprites.custom_draw(self.player)
+            self.visible_sprites.update()
+            self.visible_sprites.enemy_update(self.player)
+            self.player_attack_logic()
+            self.ui.display(self.player)
 
         # need to get rid of this later
         # debug(self.player.direction)
+    def pause_the_level(self):
+        self.pause = True
+    
+    def unpause_the_level(self):
+        self.pause = False
 
 
 class YSortCameraGroup(pygame.sprite.Group):

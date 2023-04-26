@@ -66,20 +66,6 @@ class Level:
         self.enemy_list = ["bamboo", "spirit", "raccoon", "squid"]
         self.enemies = []
 
-        # how all the components are layed out for drawing the map
-        self.layouts = {
-            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
-            "grass": import_csv_layout("../map/map_Grass.csv"),
-            "object": import_csv_layout("../map/map_Objects.csv"),
-            "entities": import_csv_layout("../map/map_Entities.csv"),
-        }
-
-        # the graphics for the map
-        self.graphics = {
-            "grass": import_folder("../graphics/Grass"),
-            "objects": import_folder("../graphics/objects"),
-        }
-
     def spawn_enemy(self):
         x = random.randint(0, WIDTH - 5)
         y = random.randint(0, HEIGHT - 1)

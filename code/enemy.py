@@ -237,9 +237,8 @@ class Enemy(Entity):
             cooldown
             checking for death
         """
-        # self.move(self.speed)
+
         self.animate()
-        # self.cooldown()
 
     def enemy_update(self, player):
         """

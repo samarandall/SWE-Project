@@ -92,7 +92,7 @@ class Level:
 
         for layer in self.tmx_data.visible_layers:
             if hasattr(layer, "data"):
-                print(layer.name)
+                #print(layer.name)
                 if layer.name == "Floor" or layer.name == "Grass":
                     """for x,y,surf in layer.tiles():
                     pos = (x * TILESIZE, y * TILESIZE)

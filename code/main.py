@@ -514,6 +514,7 @@ class Game:
             if self.game_state == "start_menu":
                 self.user_score = 0
                 self.user_text = ""
+                self.spawn_interval = 3000
                 self.main_sound.set_volume(0.7)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)

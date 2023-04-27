@@ -10,7 +10,7 @@ from settings import *
 from tile import Tile
 from player import Player
 
-# from pytmx.util_pygame import load_pygame
+from pytmx.util_pygame import load_pygame
 from support import *
 from random import choice, randint
 from weapon import Weapon
@@ -66,9 +66,23 @@ class Level:
         self.enemy_list = ["bamboo", "spirit", "raccoon", "squid"]
         self.enemies = []
 
+        # how all the components are layed out for drawing the map
+        self.layouts = {
+            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
+            "grass": import_csv_layout("../map/map_Grass.csv"),
+            "object": import_csv_layout("../map/map_Objects.csv"),
+            "entities": import_csv_layout("../map/map_Entities.csv"),
+        }
+
+        # the graphics for the map
+        self.graphics = {
+            "grass": import_folder("../graphics/Grass"),
+            "objects": import_folder("../graphics/objects"),
+        }
+
     def spawn_enemy(self):
-        x = random.randint(0, WIDTH - 5)
-        y = random.randint(0, HEIGHT - 1)
+        x = random.randint(200, WIDTH - 100)
+        y = random.randint(200, HEIGHT - 100)
         monster_name = random.choice(self.enemy_list)
         new_enemy = Enemy(
             monster_name,
@@ -127,21 +141,21 @@ class Level:
         # )
 
         # how the map is supposed to look
-        layouts = {
-            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
-            "grass": import_csv_layout("../map/map_Grass.csv"),
-            "object": import_csv_layout("../map/map_Objects.csv"),
-            "entities": import_csv_layout("../map/map_Entities.csv"),
-        }
+        # layouts = {
+        #     "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
+        #     "grass": import_csv_layout("../map/map_Grass.csv"),
+        #     "object": import_csv_layout("../map/map_Objects.csv"),
+        #     "entities": import_csv_layout("../map/map_Entities.csv"),
+        # }
 
-        # the graphics for the map
-        graphics = {
-            "grass": import_folder("../graphics/Grass"),
-            "objects": import_folder("../graphics/objects"),
-        }
+        # # the graphics for the map
+        # graphics = {
+        #     "grass": import_folder("../graphics/Grass"),
+        #     "objects": import_folder("../graphics/objects"),
+        # }
 
         # this iterates through and draws the map
-        for style, layout in layouts.items():
+        for style, layout in self.layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
                     if col != "-1":
@@ -150,7 +164,7 @@ class Level:
                         if style == "boundary":
                             Tile((x, y), [self.obstacle_sprites], "invisible")
                         if style == "grass":
-                            random_grass_image = choice(graphics["grass"])
+                            random_grass_image = choice(self.graphics["grass"])
                             Tile(
                                 (x, y),
                                 [
@@ -163,7 +177,7 @@ class Level:
                             )
 
                         if style == "object":
-                            surf = graphics["objects"][int(col)]
+                            surf = self.graphics["objects"][int(col)]
                             Tile(
                                 (x, y),
                                 [self.visible_sprites, self.obstacle_sprites],

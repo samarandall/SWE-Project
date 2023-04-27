@@ -47,11 +47,11 @@ class Game:
 
         # OST
         self.main_sound = pygame.mixer.Sound("../audio/main_ost.ogg")
-        #self.main_sound.set_volume(0.7)
+        # self.main_sound.set_volume(0.7)
         self.main_sound.play(loops=-1)
         self.game_over_sound = pygame.mixer.Sound("../audio/game_over_ost.ogg")
         self.game_over_sound.play(loops=-1)
-        #self.game_over_sound.set_volume(0.7)
+        # self.game_over_sound.set_volume(0.7)
 
         self.low_health_sound = pygame.mixer.Sound("../audio/low_health.ogg")
         self.low_health_sound.play(loops=-1)
@@ -290,7 +290,7 @@ class Game:
         self.screen.blit(move, move_rect)
         self.screen.blit(move_control, move_control_rect)
         pygame.display.update()
-    
+
     def play_main_sound(self):
         self.main_sound.play(loops=-1)
 
@@ -321,7 +321,7 @@ class Game:
                 self.main_sound.set_volume(0.7)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
-                #self.play_main_sound
+                # self.play_main_sound
                 self.draw_start_menu()
                 if keys[pygame.K_RETURN]:
                     self.level_one = Level()
@@ -341,8 +341,8 @@ class Game:
                 self.low_health_sound.set_volume(0)
                 self.draw_game_over()
                 self.game_over_sound.set_volume(0.7)
-                #self.game_over_sound.play(loops=-1)
-                #self.game_over_sound.set_volume(0)
+                # self.game_over_sound.play(loops=-1)
+                # self.game_over_sound.set_volume(0)
                 if keys[pygame.K_SPACE]:
                     self.level_one.update_game_state("start_menu")
             elif self.game_state == "controls":

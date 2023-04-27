@@ -1,9 +1,11 @@
 Boss -- 1236
 Lebron -- 940
 Novice -- 931
+Dallas -- 930
 Victor -- 850
 Mob -- 314
 Oof -- 240
+Idk -- 120
 Noob -- 26
 Trash -- 3
 Garbage -- 0

@@ -47,18 +47,6 @@ class Game:
 
         # OST
         self.main_sound = pygame.mixer.Sound("../audio/main_ost.ogg")
-<<<<<<< HEAD
-        # self.main_sound.set_volume(0.7)
-        self.main_sound.play(loops=-1)
-        self.game_over_sound = pygame.mixer.Sound("../audio/game_over_ost.ogg")
-        self.game_over_sound.play(loops=-1)
-        # self.game_over_sound.set_volume(0.7)
-
-        self.low_health_sound = pygame.mixer.Sound("../audio/low_health.ogg")
-        self.low_health_sound.play(loops=-1)
-
-        self.user_text = ""
-=======
         #self.main_sound.set_volume(0.7)
         self.main_sound.play(loops=-1)
         self.game_over_sound = pygame.mixer.Sound("../audio/game_over_ost.ogg")
@@ -67,7 +55,6 @@ class Game:
 
         self.low_health_sound = pygame.mixer.Sound("../audio/low_health.ogg")
         self.low_health_sound.play(loops=-1)
->>>>>>> 6ae3aa2 (more audio)
 
     def draw_start_menu(self):
         self.screen.fill((43, 26, 7))
@@ -518,18 +505,10 @@ class Game:
                     self.level_one.spawn_enemy()
 
             if self.game_state == "start_menu":
-<<<<<<< HEAD
-                self.user_score = 0
-                self.user_text = ""
-                self.main_sound.set_volume(0.7)
-                self.game_over_sound.set_volume(0)
-                self.low_health_sound.set_volume(0)
-=======
                 self.main_sound.set_volume(0.7)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
                 #self.play_main_sound
->>>>>>> 6ae3aa2 (more audio)
                 self.draw_start_menu()
                 if keys[pygame.K_RETURN]:
                     self.level_one = Level()
@@ -549,18 +528,11 @@ class Game:
             elif self.game_state == "game_over":
                 self.main_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
-<<<<<<< HEAD
-                self.user_score = self.level_one.get_player_score()
-                self.draw_game_over()
-                self.game_over_sound.set_volume(0.7)
-                if keys[pygame.K_m]:
-=======
                 self.draw_game_over()
                 self.game_over_sound.set_volume(0.7)
                 #self.game_over_sound.play(loops=-1)
                 #self.game_over_sound.set_volume(0)
                 if keys[pygame.K_SPACE]:
->>>>>>> 6ae3aa2 (more audio)
                     self.level_one.update_game_state("start_menu")
                 elif keys[pygame.K_s]:
                     self.level_one.update_game_state("save")

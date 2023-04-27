@@ -33,9 +33,10 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # spawning in enemies every 3 seconds
+        self.spawn_interval = 5000
         self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
         # pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 20000)
-        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 3000)
+        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, self.spawn_interval)
 
         # setting the title of our game
 
@@ -503,6 +504,7 @@ class Game:
                     )
                 elif event.type == self.SPAWN_ENEMY_EVENT:
                     # if it has been 3 seconds and it it time to spawn in a new enemy
+                    self.spawn_interval *=0.5
                     self.level_one.spawn_enemy()
 
             if self.game_state == "start_menu":

@@ -46,8 +46,7 @@ class Level:
         # ui
         self.ui = UI()
 
-        self.tmx_data = load_pygame('../data/tmx/new_map.tmx')
-
+        self.tmx_data = load_pygame("../data/tmx/new_map.tmx")
 
         # making the map
         self.make_map()
@@ -118,7 +117,6 @@ class Level:
                             sprite_type="not",
                             groups=[self.visible_sprites, self.obstacle_sprites],
                         )
-        
 
     def create_attack(self):
         """
@@ -253,7 +251,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         # this is the old way that was breaking the game
         self.floor_surf = pygame.image.load("../data/floor/new_map.png").convert()
 
-        #self.floor_surf = pygame.image.load("../graphics/tilemap/ground.png").convert()
+        # self.floor_surf = pygame.image.load("../graphics/tilemap/ground.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):

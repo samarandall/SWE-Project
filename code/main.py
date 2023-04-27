@@ -57,6 +57,8 @@ class Game:
         self.low_health_sound = pygame.mixer.Sound("../audio/low_health.ogg")
         self.low_health_sound.play(loops=-1)
 
+        self.user_text = ''
+
     def draw_start_menu(self):
         self.screen.fill((43, 26, 7))
         title_font = pygame.font.Font("../graphics/font/joystix.ttf", 60)
@@ -319,9 +321,154 @@ class Game:
         self.screen.blit(move, move_rect)
         self.screen.blit(move_control, move_control_rect)
         pygame.display.update()
+
+    def draw_save_screen(self):
+        self.screen.fill((43, 26, 7))
+        title_font = pygame.font.Font("../graphics/font/joystix.ttf", 80)
+        button_font = pygame.font.Font("../graphics/font/joystix.ttf", 50)
+        enter_font = pygame.font.Font("../graphics/font/joystix.ttf", 25)
+        user_name_font = pygame.font.Font("../graphics/font/joystix.ttf", 40)
+        title = title_font.render("Enter Your Name", True, (205, 86, 156))
+        title_rect = title.get_rect()
+        title_rect.center = (
+            self.screen_width // 2,
+            (self.screen_height // 2) - (self.screen_height // 8),
+        )
+        user_name = user_name_font.render(self.user_text, True, (205, 86, 156))
+        input_rect = user_name.get_rect()
+        input_rect.center = (
+            self.screen_width // 2,
+            (self.screen_height // 2) + (self.screen_height // 7),
+        )
+        start_menu = button_font.render("Save", True, (255, 255, 255))
+        start_menu_rect = start_menu.get_rect()
+        start_menu_rect.center = (
+            self.screen_width // 2,
+            (self.screen_height // 2) + (self.screen_height // 4),
+        )
+        enter = enter_font.render("(lctrl)", True, (205, 86, 156))
+        enter_rect = enter.get_rect()
+        enter_rect.center = (
+            self.screen_width // 2,
+            (self.screen_height // 2) + (self.screen_height // 3),
+        )
+        self.screen.blit(title, title_rect)
+        self.screen.blit(start_menu, start_menu_rect)
+        self.screen.blit(enter, enter_rect)
+        self.screen.blit(user_name, input_rect)
+        pygame.display.update()
     
-    def play_main_sound(self):
-        self.main_sound.play(loops=-1)
+    def draw_leaderboard(self):
+        leaders = self.get_top_five_scores()
+        self.screen.fill((43, 26, 7))
+        title_font = pygame.font.Font("../graphics/font/joystix.ttf", 60)
+        text_font = pygame.font.Font("../graphics/font/joystix.ttf", 15)
+        button_font = pygame.font.Font("../graphics/font/joystix.ttf", 40)
+        enter_font = pygame.font.Font("../graphics/font/joystix.ttf", 15)
+        title = title_font.render("LeaderBoard", True, (205, 86, 156))
+        title_rect = title.get_rect()
+        title_rect.center = (
+            self.screen_width // 2,
+            (self.screen_height // 2) - (self.screen_height // 3),
+        )
+        one = text_font.render(leaders[0].rstrip('\n'), True, (205, 86, 156))
+        num_one = text_font.render("1.", True, (255, 255, 255))
+        num_one_rect = num_one.get_rect()
+        num_one_rect.center = (
+            (self.screen_width // 2) - (self.screen_width // 16),
+            (self.screen_height // 2) - (self.screen_height // 5),
+        )
+        one_rect = one.get_rect()
+        one_rect.center = (
+            (self.screen_width // 2) + (self.screen_width // 16),
+            (self.screen_height // 2) - (self.screen_height // 5),
+        )
+
+        two = text_font.render(leaders[1].rstrip('\n'), True, (205, 86, 156))
+        num_two = text_font.render("2.", True, (255, 255, 255))
+        num_two_rect = num_two.get_rect()
+        num_two_rect.center = (
+            (self.screen_width // 2) - (self.screen_width // 16),
+            (self.screen_height // 2) - (self.screen_height // 8),
+        )
+        two_rect = two.get_rect()
+        two_rect.center = (
+            (self.screen_width // 2) + (self.screen_width // 16),
+            (self.screen_height // 2) - (self.screen_height // 8),
+        )
+
+        three = text_font.render(leaders[2].rstrip('\n'), True, (205, 86, 156))
+        num_three = text_font.render("3.", True, (255, 255, 255))
+        num_three_rect = num_three.get_rect()
+        num_three_rect.center = (
+            (self.screen_width // 2) - (self.screen_width // 16),
+            (self.screen_height // 4) + (self.screen_height // 5),
+        )
+        three_rect = three.get_rect()
+        three_rect.center = (
+            (self.screen_width // 2) + (self.screen_width // 16),
+            (self.screen_height // 4) + (self.screen_height // 5),
+        )
+
+        four = text_font.render(leaders[3].rstrip('\n'), True, (205, 86, 156))
+        num_four = text_font.render("4.", True, (255, 255, 255))
+        num_four_rect = num_four.get_rect()
+        num_four_rect.center = (
+            (self.screen_width // 2) - (self.screen_width // 16),
+            (self.screen_height // 4) + (self.screen_height // 3.25),
+        )
+        four_rect = four.get_rect()
+        four_rect.center = (
+            (self.screen_width // 2) + (self.screen_width // 16),
+            (self.screen_height // 4) + (self.screen_height // 3.25),
+        )
+
+        five = text_font.render(leaders[4].rstrip('\n'), True, (205, 86, 156))
+        num_five = text_font.render("5.", True, (255, 255, 255))
+        num_five_rect = num_five.get_rect()
+        num_five_rect.center = (
+            (self.screen_width // 2) - (self.screen_width // 16),
+            (self.screen_height // 4) + (self.screen_height // 2.5),
+        )
+        five_rect = five.get_rect()
+        five_rect.center = (
+            (self.screen_width // 2) + (self.screen_width // 16),
+            (self.screen_height // 4) + (self.screen_height // 2.5),
+        )
+        start_menu = button_font.render('Start Menu', True, (255, 255, 255))
+        start_menu_rect = start_menu.get_rect()
+        start_menu_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 3))
+        enter = enter_font.render('(Esc)', True, (205, 86, 156))
+        enter_rect = enter.get_rect()
+        enter_rect.center = (self.screen_width // 2, (self.screen_height // 2) + (self.screen_height // 2.5))
+        self.screen.blit(title, title_rect)
+        self.screen.blit(start_menu, start_menu_rect)
+        self.screen.blit(enter, enter_rect)
+        self.screen.blit(num_one, num_one_rect)
+        self.screen.blit(one, one_rect)
+        self.screen.blit(num_two, num_two_rect)
+        self.screen.blit(two, two_rect)
+        self.screen.blit(num_three, num_three_rect)
+        self.screen.blit(three, three_rect)
+        self.screen.blit(num_four, num_four_rect)
+        self.screen.blit(four, four_rect)
+        self.screen.blit(num_five, num_five_rect)
+        self.screen.blit(five, five_rect)
+        pygame.display.update()
+    
+    def write_to_leaderboard(self):
+        with open('../leaderboard/saved_data.txt', 'a') as a:
+            a.write(f"{self.user_text} -- {self.user_score}\n")
+        with open('../leaderboard/saved_data.txt', 'r') as r:
+            lines = r.readlines()
+        sorted_lines = sorted(lines, key=lambda line: int(line.split('--')[1].strip()), reverse=True)
+        with open('../leaderboard/saved_data.txt', 'w') as w:
+            w.writelines(sorted_lines)
+
+    def get_top_five_scores(self):
+        with open('../leaderboard/saved_data.txt', 'r') as r:
+            lines = r.readlines()
+        return lines[:5]
 
     def play_main_sound(self):
         self.main_sound.play(loops=-1)

@@ -542,7 +542,7 @@ class Game:
             elif self.game_state == "game_over":
                 self.main_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
-                self.user_score = self.level_one.get_player_score()
+                self.user_score = int(self.level_one.get_player_score())
                 self.draw_game_over()
                 self.game_over_sound.set_volume(0.7)
                 if keys[pygame.K_m]:

@@ -64,9 +64,11 @@ class Level:
         self.enemy_list = ["bamboo", "spirit", "raccoon", "squid"]
         self.enemies = []
 
+        self.random_location = [(2048/2), ((2048/2)-(2048/4)), ((2048/2)+(2048/4))]
+
     def spawn_enemy(self, factor):
-        x = random.randint((WIDTH // 2), (WIDTH // 2) + 5)
-        y = random.randint((HEIGHT // 2), (HEIGHT // 2) + 5)
+        x = random.choice(self.random_location)
+        y = random.choice(self.random_location)
         monster_name = random.choice(self.enemy_list)
         new_enemy = Enemy(
             monster_name,

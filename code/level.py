@@ -92,7 +92,7 @@ class Level:
         for layer in self.tmx_data.visible_layers:
             if hasattr(layer, "data"):
                 print(layer.name)
-                if layer.name == "Floor":
+                if layer.name == "Floor" or layer.name == "Grass":
                     """for x,y,surf in layer.tiles():
                     pos = (x * TILESIZE, y * TILESIZE)
                     Tile(pos = pos, surf = surf, sprite_type='not', groups = [self.visible_sprites])
@@ -251,7 +251,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # this is the old way that was breaking the game
-        self.floor_surf = pygame.image.load("../data/floor/floor.png").convert()
+        self.floor_surf = pygame.image.load("../data/floor/new_map.png").convert()
 
         #self.floor_surf = pygame.image.load("../graphics/tilemap/ground.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))

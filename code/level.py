@@ -62,13 +62,14 @@ class Level:
         # 3000 milliseconds is 3 seconds
         self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
         # pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 3000)
-        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 200)
+        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 20000)
+        # pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 200)
         self.enemy_list = ["bamboo", "spirit", "raccoon", "squid"]
         self.enemies = []
 
     def spawn_enemy(self):
-        x = random.randint(0, WIDTH - 5)
-        y = random.randint(0, HEIGHT - 1)
+        x = random.randint((WIDTH // 2) - 5, (WIDTH // 2) + 10)
+        y = random.randint((HEIGHT // 2) - 5, (HEIGHT // 2) + 10)
         monster_name = random.choice(self.enemy_list)
         new_enemy = Enemy(
             monster_name,
@@ -171,34 +172,34 @@ class Level:
                                 surf,
                             )
 
-                        if style == "entities":
-                            if col == "394":
-                                self.player = Player(
-                                    (x, y),
-                                    [self.visible_sprites],
-                                    self.obstacle_sprites,
-                                    self.create_attack,
-                                    self.destroy_attack,
-                                    self.create_magic,
-                                )
+                    if style == "entities":
+                        if col == "394":
+                            self.player = Player(
+                                (x, y),
+                                [self.visible_sprites],
+                                self.obstacle_sprites,
+                                self.create_attack,
+                                self.destroy_attack,
+                                self.create_magic,
+                            )
+                        else:
+                            if col == "390":
+                                monster_name = "bamboo"
+                            elif col == "391":
+                                monster_name = "spirit"
+                            elif col == "392":
+                                monster_name = "raccoon"
                             else:
-                                if col == "390":
-                                    monster_name = "bamboo"
-                                elif col == "391":
-                                    monster_name = "spirit"
-                                elif col == "392":
-                                    monster_name = "raccoon"
-                                else:
-                                    monster_name = "squid"
-                                Enemy(
-                                    monster_name,
-                                    (x, y),
-                                    [self.visible_sprites, self.attackable_sprites],
-                                    self.obstacle_sprites,
-                                    self.damage_player,
-                                    self.trigger_death_particles,
-                                    self.add_exp,
-                                )
+                                monster_name = "squid"
+                            Enemy(
+                                monster_name,
+                                (x, y),
+                                [self.visible_sprites, self.attackable_sprites],
+                                self.obstacle_sprites,
+                                self.damage_player,
+                                self.trigger_death_particles,
+                                self.add_exp,
+                            )
 
     def create_attack(self):
         """

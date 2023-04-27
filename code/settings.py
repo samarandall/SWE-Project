@@ -4,7 +4,9 @@ this is the settings file which contains some very basic but important variables
 
 # these are the main variables for the game
 WIDTH = 1280
+# center width = 1280 / 2 = 640
 HEIGHT = 720
+# center height = 360 / 2 = 360
 FPS = 60
 TILESIZE = 64
 

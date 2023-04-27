@@ -34,7 +34,7 @@ class Game:
 
         # spawning in enemies every 3 seconds
         self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 3000)
+        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 20000)
 
         # setting the title of our game
 

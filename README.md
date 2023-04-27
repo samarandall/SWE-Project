@@ -10,7 +10,9 @@
 ## Initial Set Up
 1. Make sure you have pygame
    - 'pip install pygame'
-2. In order to run pytest unit tests, make sure you have pytest
+2. Make sure you have pytmx
+- 'pip install pytmx'
+3. In order to run pytest unit tests, make sure you have pytest
    - 'pip install pytest'
 
 ## How to start the game

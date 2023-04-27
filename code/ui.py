@@ -24,6 +24,8 @@ class UI:
             path = weapon["graphic"]
             weapon = pygame.image.load(path).convert_alpha()
             self.weapon_graphics.append(weapon)
+        
+        self.screen_width, self.screen_height = WIDTH, HEIGHT
 
     def show_bar(self, current, max_amount, bg_rect, color):
         """
@@ -84,7 +86,7 @@ class UI:
         """
 
         # this generates everything for the magic overlay
-        bg_rect = self.selection_box(80, 635, has_switched)
+        bg_rect = self.selection_box(80, (self.screen_height / 10), has_switched)
         magic_surface = self.magic_graphics[magic_index]
         magic_rect = magic_surface.get_rect(center=bg_rect.center)
         self.display_surface.blit(magic_surface, magic_rect)
@@ -95,7 +97,7 @@ class UI:
         """
 
         # making all the weapon overlay
-        bg_rect = self.selection_box(10, 630, has_switched)
+        bg_rect = self.selection_box(10, (self.screen_height / 8), has_switched)
         weapon_surf = self.weapon_graphics[weapon_index]
         weapon_rect = weapon_surf.get_rect(center=bg_rect.center)
         self.display_surface.blit(weapon_surf, weapon_rect)

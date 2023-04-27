@@ -5,7 +5,7 @@
 ### Victor Ekpenyong, Dallas Gere, Sam Randall
 
 ## Overview
-- This repository holds our all the files needed to run our game made using python's pygame. You can also find the class diagram showing how each class and methods interact with each other as well as our original Project Proposal and Software Requirements Specificatioins (SRS). Unit Testing on some basic class variables and methods was implemented using pytest.
+- This repository holds our all the files needed to run our game made using python's pygame. You can also find the class diagram made using pycharm showing how each class and methods interact with each other as well as our original Project Proposal and Software Requirements Specificatioins (SRS). Unit Testing on some basic class variables and methods was implemented using pytest.
 
 ## Initial Set Up
 1. Make sure you have pygame

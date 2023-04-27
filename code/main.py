@@ -657,7 +657,7 @@ class Game:
                     )
                 elif event.type == self.SPAWN_ENEMY_EVENT:
                     # if it has been 3 seconds and it it time to spawn in a new enemy
-                    self.spawn_interval = int(self.spawn_interval * 0.9)
+                    self.spawn_interval = int(self.spawn_interval * 0.99)
                     pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, self.spawn_interval)
 
                     # this makes the spawn interval increase

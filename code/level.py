@@ -81,8 +81,8 @@ class Level:
         }
 
     def spawn_enemy(self):
-        x = random.randint(200, WIDTH - 100)
-        y = random.randint(200, HEIGHT - 100)
+        x = random.randint(0, WIDTH - 5)
+        y = random.randint(0, HEIGHT - 1)
         monster_name = random.choice(self.enemy_list)
         new_enemy = Enemy(
             monster_name,

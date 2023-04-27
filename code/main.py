@@ -507,8 +507,13 @@ class Game:
                     )
                 elif event.type == self.SPAWN_ENEMY_EVENT:
                     # if it has been 3 seconds and it it time to spawn in a new enemy
-                    self.spawn_interval = int(self.spawn_interval * 0.9)
                     pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, self.spawn_interval)
+
+                    # this makes the spawn interval increase
+                    self.spawn_interval = int(self.spawn_interval * 0.9)
+
+                    # making the factor for enemy strength go up
+                    factor += 0.1
                     self.level_one.spawn_enemy(factor)
 
             if self.game_state == "start_menu":
@@ -595,9 +600,6 @@ class Game:
                 self.level_one.run()
                 pygame.display.update()
                 self.clock.tick(FPS)
-
-            # making the factor for enemy strength go up
-            factor += 0.1
 
 
 if __name__ == "__main__":

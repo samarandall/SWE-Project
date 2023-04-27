@@ -239,17 +239,10 @@ class Enemy(Entity):
         """
 
         self.health += factor
-        print(f"health: {self.health}")
-        self.attack_damage += self.attack_damage * factor
-        print(f"attack: {self.attack_damage}")
+        # self.attack_damage += self.attack_damage * factor
         self.notice_radius += self.notice_radius * factor
-        print(f"radius: {self.notice_radius}")
         self.exp += factor
-        print(f"exp: {self.exp}")
         self.animate()
-
-        # self.exp = monster_info["exp"]
-        # self.speed = monster_info["speed"]
 
     def enemy_update(self, player):
         """

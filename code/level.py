@@ -141,21 +141,21 @@ class Level:
         # )
 
         # how the map is supposed to look
-        # layouts = {
-        #     "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
-        #     "grass": import_csv_layout("../map/map_Grass.csv"),
-        #     "object": import_csv_layout("../map/map_Objects.csv"),
-        #     "entities": import_csv_layout("../map/map_Entities.csv"),
-        # }
+        layouts = {
+            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
+            "grass": import_csv_layout("../map/map_Grass.csv"),
+            "object": import_csv_layout("../map/map_Objects.csv"),
+            "entities": import_csv_layout("../map/map_Entities.csv"),
+        }
 
-        # # the graphics for the map
-        # graphics = {
-        #     "grass": import_folder("../graphics/Grass"),
-        #     "objects": import_folder("../graphics/objects"),
-        # }
+        # the graphics for the map
+        graphics = {
+            "grass": import_folder("../graphics/Grass"),
+            "objects": import_folder("../graphics/objects"),
+        }
 
         # this iterates through and draws the map
-        for style, layout in self.layouts.items():
+        for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
                     if col != "-1":
@@ -164,7 +164,7 @@ class Level:
                         if style == "boundary":
                             Tile((x, y), [self.obstacle_sprites], "invisible")
                         if style == "grass":
-                            random_grass_image = choice(self.graphics["grass"])
+                            random_grass_image = choice(graphics["grass"])
                             Tile(
                                 (x, y),
                                 [
@@ -177,7 +177,7 @@ class Level:
                             )
 
                         if style == "object":
-                            surf = self.graphics["objects"][int(col)]
+                            surf = graphics["objects"][int(col)]
                             Tile(
                                 (x, y),
                                 [self.visible_sprites, self.obstacle_sprites],

@@ -47,11 +47,11 @@ class Game:
 
         # OST
         self.main_sound = pygame.mixer.Sound("../audio/main_ost.ogg")
-        #self.main_sound.set_volume(0.7)
+        # self.main_sound.set_volume(0.7)
         self.main_sound.play(loops=-1)
         self.game_over_sound = pygame.mixer.Sound("../audio/game_over_ost.ogg")
         self.game_over_sound.play(loops=-1)
-        #self.game_over_sound.set_volume(0.7)
+        # self.game_over_sound.set_volume(0.7)
 
         self.low_health_sound = pygame.mixer.Sound("../audio/low_health.ogg")
         self.low_health_sound.play(loops=-1)
@@ -318,7 +318,7 @@ class Game:
         self.screen.blit(move, move_rect)
         self.screen.blit(move_control, move_control_rect)
         pygame.display.update()
-    
+
     def play_main_sound(self):
         self.main_sound.play(loops=-1)
 
@@ -505,10 +505,11 @@ class Game:
                     self.level_one.spawn_enemy()
 
             if self.game_state == "start_menu":
+                self.user_score = 0
+                self.user_text = ""
                 self.main_sound.set_volume(0.7)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
-                #self.play_main_sound
                 self.draw_start_menu()
                 if keys[pygame.K_RETURN]:
                     self.level_one = Level()
@@ -528,16 +529,50 @@ class Game:
             elif self.game_state == "game_over":
                 self.main_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
+                self.user_score = self.level_one.get_player_score()
                 self.draw_game_over()
                 self.game_over_sound.set_volume(0.7)
-                #self.game_over_sound.play(loops=-1)
-                #self.game_over_sound.set_volume(0)
-                if keys[pygame.K_SPACE]:
+                if keys[pygame.K_m]:
                     self.level_one.update_game_state("start_menu")
                 elif keys[pygame.K_s]:
                     self.level_one.update_game_state("save")
             elif self.game_state == "controls":
                 self.draw_controls()
+                if keys[pygame.K_ESCAPE]:
+                    self.level_one.update_game_state("start_menu")
+            elif self.game_state == "save":
+                self.draw_save_screen()
+                ready_to_save = False
+                while ready_to_save == False:
+                    for user_event in pygame.event.get():
+                        if user_event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                        elif user_event.type == pygame.VIDEORESIZE:
+                            # Update the screen size
+                            self.screen_width, self.screen_height = user_event.size
+                            self.screen = pygame.display.set_mode(
+                                (self.screen_width, self.screen_height),
+                                pygame.RESIZABLE,
+                            )
+                        if (
+                            user_event.type == pygame.KEYDOWN
+                            and user_event.key == pygame.K_LCTRL
+                        ):
+                            ready_to_save = True
+                            break
+                        elif (
+                            user_event.type == pygame.KEYDOWN
+                            and user_event.key == pygame.K_BACKSPACE
+                        ):
+                            self.user_text = self.user_text[:-1]
+                        elif user_event.type == pygame.KEYDOWN:
+                            self.user_text += user_event.unicode
+                        self.draw_save_screen()
+                self.write_to_leaderboard()
+                self.level_one.update_game_state("start_menu")
+            elif self.game_state == "leaderboard":
+                self.draw_leaderboard()
                 if keys[pygame.K_ESCAPE]:
                     self.level_one.update_game_state("start_menu")
             else:

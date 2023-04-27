@@ -487,6 +487,10 @@ class Game:
         this is the initial running of the game
         """
 
+        # this is to increase enemy stats every time they spawn
+        factor = 0
+
+        # this is the main game loop
         while True:
             keys = pygame.key.get_pressed()
             self.game_state = self.level_one.get_game_state()
@@ -506,10 +510,11 @@ class Game:
                     self.spawn_interval = int(self.spawn_interval * 0.9)
                     pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, self.spawn_interval)
                     self.level_one.spawn_enemy()
+                    self.level_one.spawn_enemy(factor)
 
             if self.game_state == "start_menu":
                 self.user_score = 0
-                self.user_text = ''
+                self.user_text = ""
                 self.main_sound.set_volume(0.7)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
@@ -542,7 +547,7 @@ class Game:
             elif self.game_state == "controls":
                 self.draw_controls()
                 if keys[pygame.K_ESCAPE]:
-                    self.level_one.update_game_state('start_menu')
+                    self.level_one.update_game_state("start_menu")
             elif self.game_state == "save":
                 self.draw_save_screen()
                 ready_to_save = False
@@ -555,12 +560,19 @@ class Game:
                             # Update the screen size
                             self.screen_width, self.screen_height = user_event.size
                             self.screen = pygame.display.set_mode(
-                                (self.screen_width, self.screen_height), pygame.RESIZABLE
+                                (self.screen_width, self.screen_height),
+                                pygame.RESIZABLE,
                             )
-                        if user_event.type == pygame.KEYDOWN and user_event.key == pygame.K_LCTRL:
+                        if (
+                            user_event.type == pygame.KEYDOWN
+                            and user_event.key == pygame.K_LCTRL
+                        ):
                             ready_to_save = True
                             break
-                        elif user_event.type == pygame.KEYDOWN and user_event.key == pygame.K_BACKSPACE:
+                        elif (
+                            user_event.type == pygame.KEYDOWN
+                            and user_event.key == pygame.K_BACKSPACE
+                        ):
                             self.user_text = self.user_text[:-1]
                         elif user_event.type == pygame.KEYDOWN:
                             self.user_text += user_event.unicode
@@ -570,7 +582,7 @@ class Game:
             elif self.game_state == "leaderboard":
                 self.draw_leaderboard()
                 if keys[pygame.K_ESCAPE]:
-                    self.level_one.update_game_state('start_menu')
+                    self.level_one.update_game_state("start_menu")
             else:
                 if self.low_health:
                     self.main_sound.set_volume(0)
@@ -583,6 +595,9 @@ class Game:
                 self.level_one.run()
                 pygame.display.update()
                 self.clock.tick(FPS)
+
+            # making the factor for enemy strength go up
+            factor += 0.1
 
 
 if __name__ == "__main__":

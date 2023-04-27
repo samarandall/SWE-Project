@@ -65,12 +65,9 @@ class Level:
         self.enemy_list = ["bamboo", "spirit", "raccoon", "squid"]
         self.enemies = []
 
-        self.spawn_x_locations = [(2048 // 2), ((2048 // 2)+(2048 // 4)), ((2048 // 2)-(2048 // 4))]
-        self.spawn_y_locations = [(2048 // 2), ((2048 // 2)+(2048 // 4)), ((2048 // 2)-(2048 // 4))]
-
-    def spawn_enemy(self):
-        x = random.choice(self.spawn_x_locations)
-        y = random.choice(self.spawn_y_locations)
+    def spawn_enemy(self, factor):
+        x = random.randint((WIDTH // 2), (WIDTH // 2) + 5)
+        y = random.randint((HEIGHT // 2), (HEIGHT // 2) + 5)
         monster_name = random.choice(self.enemy_list)
         new_enemy = Enemy(
             monster_name,
@@ -85,7 +82,7 @@ class Level:
 
         # for enemy in self.enemies:
         #     enemy.spawn_update()
-        new_enemy.spawn_update()
+        new_enemy.spawn_update(factor)
 
     def make_map(self):
         """

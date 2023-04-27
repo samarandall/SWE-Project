@@ -227,7 +227,7 @@ class Enemy(Entity):
         self.cooldown()
         self.check_death()
 
-    def spawn_update(self):
+    def spawn_update(self, factor):
         """
         this should update and draw the new enemy without repeating unneeded action that happen in the regular update method
 
@@ -237,9 +237,19 @@ class Enemy(Entity):
             cooldown
             checking for death
         """
-        # self.move(self.speed)
+
+        self.health += factor
+        print(f"health: {self.health}")
+        self.attack_damage += self.attack_damage * factor
+        print(f"attack: {self.attack_damage}")
+        self.notice_radius += self.notice_radius * factor
+        print(f"radius: {self.notice_radius}")
+        self.exp += factor
+        print(f"exp: {self.exp}")
         self.animate()
-        # self.cooldown()
+
+        # self.exp = monster_info["exp"]
+        # self.speed = monster_info["speed"]
 
     def enemy_update(self, player):
         """

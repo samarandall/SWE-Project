@@ -270,15 +270,16 @@ class Level:
         how the player takes damage from the enemy
         """
 
-        if self.player.vulnerable:
-            self.player.health -= amount
-            self.player.vulnerable = False
-            self.player.hurt_time = pygame.time.get_ticks()
-            self.animation_player.create_particles(
-                attack_type, self.player.rect.center, [self.visible_sprites]
-            )
-        if self.player.health <= 0:
-            self.update_game_state("game_over")
+        # if self.player.vulnerable:
+        #     self.player.health -= amount
+        #     self.player.vulnerable = False
+        #     self.player.hurt_time = pygame.time.get_ticks()
+        #     self.animation_player.create_particles(
+        #         attack_type, self.player.rect.center, [self.visible_sprites]
+        #     )
+        # if self.player.health <= 0:
+        #     self.update_game_state("game_over")
+        pass
 
     def get_game_state(self):
         return self.player.get_game_state()

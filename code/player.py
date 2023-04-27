@@ -28,7 +28,7 @@ class Player(Entity):
 
         # these variables are always needed for sprites
         self.image = pygame.image.load(
-            "../sprite_stuff/map_assets/player.png"
+            "../graphics/player/down/down_0.png"
         ).convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -26)

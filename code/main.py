@@ -35,7 +35,7 @@ class Game:
         # spawning in enemies every 3 seconds
         self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
         # pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 20000)
-        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 200)
+        pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 3000)
 
         # setting the title of our game
 
@@ -508,7 +508,7 @@ class Game:
             if self.game_state == "start_menu":
                 self.user_score = 0
                 self.user_text = ""
-                self.main_sound.set_volume(0.7)
+                self.main_sound.set_volume(0)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
                 self.draw_start_menu()
@@ -532,7 +532,7 @@ class Game:
                 self.low_health_sound.set_volume(0)
                 self.user_score = self.level_one.get_player_score()
                 self.draw_game_over()
-                self.game_over_sound.set_volume(0.7)
+                self.game_over_sound.set_volume(0)
                 if keys[pygame.K_m]:
                     self.level_one.update_game_state("start_menu")
                 elif keys[pygame.K_s]:
@@ -580,10 +580,10 @@ class Game:
                 if self.low_health:
                     self.main_sound.set_volume(0)
                     self.game_over_sound.set_volume(0)
-                    self.low_health_sound.set_volume(0.7)
+                    self.low_health_sound.set_volume(0)
                 else:
                     self.low_health_sound.set_volume(0)
-                    self.main_sound.set_volume(0.7)
+                    self.main_sound.set_volume(0)
                 self.screen.fill(WATER_COLOR)
                 self.level_one.run()
                 pygame.display.update()

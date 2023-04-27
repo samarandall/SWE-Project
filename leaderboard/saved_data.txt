@@ -9,3 +9,4 @@ Idk -- 120
 Noob -- 26
 Trash -- 3
 Garbage -- 0
+ -- 0

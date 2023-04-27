@@ -46,6 +46,9 @@ class Level:
         # ui
         self.ui = UI()
 
+        self.tmx_data = load_pygame('../data/tmx/new_map.tmx')
+
+
         # making the map
         self.make_map()
 
@@ -86,116 +89,36 @@ class Level:
         this is the function that will draw our map based off of the world map array in settings
         """
 
-        # for layer in self.tmx_data.visible_layers:
-        #     if hasattr(layer, "data"):
-        #         print(layer.name)
-        #         if layer.name == "Floor":
-        #             """for x,y,surf in layer.tiles():
-        #             pos = (x * TILESIZE, y * TILESIZE)
-        #             Tile(pos = pos, surf = surf, sprite_type='not', groups = [self.visible_sprites])
-        #             """
-        #             pass
-        #         elif layer.name == "Player":
-        #             for x, y, surf in layer.tiles():
-        #                 pos = (x * TILESIZE, y * TILESIZE)
-        #                 self.player = Player(
-        #                     pos,
-        #                     [self.visible_sprites],
-        #                     self.obstacle_sprites,
-        #                     self.create_attack,
-        #                     self.destroy_attack,
-        #                 )
-        #         else:
-        #             for x, y, surf in layer.tiles():
-        #                 pos = (x * TILESIZE, y * TILESIZE)
-        #                 Tile(
-        #                     pos=pos,
-        #                     surf=surf,
-        #                     sprite_type="not",
-        #                     groups=[self.visible_sprites, self.obstacle_sprites],
-        #                 )
-
-        # self.player = Player(
-        #     pos,
-        #     [self.visible_sprites],
-        #     self.obstacle_sprites,
-        #     self.create_attack,
-        #     self.destroy_attack,
-        # )
-
-        # how the map is supposed to look
-        layouts = {
-            "boundary": import_csv_layout("../map/map_FloorBlocks.csv"),
-            "grass": import_csv_layout("../map/map_Grass.csv"),
-            "object": import_csv_layout("../map/map_Objects.csv"),
-            "entities": import_csv_layout("../map/map_Entities.csv"),
-        }
-
-        # the graphics for the map
-        graphics = {
-            "grass": import_folder("../graphics/Grass"),
-            "objects": import_folder("../graphics/objects"),
-        }
-
-        # this iterates through and draws the map
-        for style, layout in layouts.items():
-            for row_index, row in enumerate(layout):
-                for col_index, col in enumerate(row):
-                    if col != "-1":
-                        x = col_index * TILESIZE
-                        y = row_index * TILESIZE
-                        if style == "boundary":
-                            Tile((x, y), [self.obstacle_sprites], "invisible")
-                        if style == "grass":
-                            random_grass_image = choice(graphics["grass"])
-                            Tile(
-                                (x, y),
-                                [
-                                    self.visible_sprites,
-                                    self.obstacle_sprites,
-                                    self.attackable_sprites,
-                                ],
-                                "grass",
-                                random_grass_image,
-                            )
-
-                        if style == "object":
-                            surf = graphics["objects"][int(col)]
-                            Tile(
-                                (x, y),
-                                [self.visible_sprites, self.obstacle_sprites],
-                                "object",
-                                surf,
-                            )
-
-                        if style == "entities":
-                            if col == "394":
-                                self.player = Player(
-                                    (x, y),
-                                    [self.visible_sprites],
-                                    self.obstacle_sprites,
-                                    self.create_attack,
-                                    self.destroy_attack,
-                                    self.create_magic,
-                                )
-                            else:
-                                if col == "390":
-                                    monster_name = "bamboo"
-                                elif col == "391":
-                                    monster_name = "spirit"
-                                elif col == "392":
-                                    monster_name = "raccoon"
-                                else:
-                                    monster_name = "squid"
-                                Enemy(
-                                    monster_name,
-                                    (x, y),
-                                    [self.visible_sprites, self.attackable_sprites],
-                                    self.obstacle_sprites,
-                                    self.damage_player,
-                                    self.trigger_death_particles,
-                                    self.add_exp,
-                                )
+        for layer in self.tmx_data.visible_layers:
+            if hasattr(layer, "data"):
+                print(layer.name)
+                if layer.name == "Floor":
+                    """for x,y,surf in layer.tiles():
+                    pos = (x * TILESIZE, y * TILESIZE)
+                    Tile(pos = pos, surf = surf, sprite_type='not', groups = [self.visible_sprites])
+                    """
+                    pass
+                elif layer.name == "Player":
+                    for x, y, surf in layer.tiles():
+                        pos = (x * TILESIZE, y * TILESIZE)
+                        self.player = Player(
+                            pos,
+                            [self.visible_sprites],
+                            self.obstacle_sprites,
+                            self.create_attack,
+                            self.destroy_attack,
+                            self.create_magic,
+                        )
+                else:
+                    for x, y, surf in layer.tiles():
+                        pos = (x * TILESIZE, y * TILESIZE)
+                        Tile(
+                            pos=pos,
+                            surf=surf,
+                            sprite_type="not",
+                            groups=[self.visible_sprites, self.obstacle_sprites],
+                        )
+        
 
     def create_attack(self):
         """
@@ -267,16 +190,15 @@ class Level:
         how the player takes damage from the enemy
         """
 
-        # if self.player.vulnerable:
-        #     self.player.health -= amount
-        #     self.player.vulnerable = False
-        #     self.player.hurt_time = pygame.time.get_ticks()
-        #     self.animation_player.create_particles(
-        #         attack_type, self.player.rect.center, [self.visible_sprites]
-        #     )
-        # if self.player.health <= 0:
-        #     self.update_game_state("game_over")
-        pass
+        if self.player.vulnerable:
+            self.player.health -= amount
+            self.player.vulnerable = False
+            self.player.hurt_time = pygame.time.get_ticks()
+            self.animation_player.create_particles(
+                attack_type, self.player.rect.center, [self.visible_sprites]
+            )
+        if self.player.health <= 0:
+            self.update_game_state("game_over")
 
     def get_game_state(self):
         return self.player.get_game_state()
@@ -329,9 +251,9 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # this is the old way that was breaking the game
-        # self.floor_surf = pygame.image.load("../data/floor/floor.png").convert()
+        self.floor_surf = pygame.image.load("../data/floor/floor.png").convert()
 
-        self.floor_surf = pygame.image.load("../graphics/tilemap/ground.png").convert()
+        #self.floor_surf = pygame.image.load("../graphics/tilemap/ground.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):

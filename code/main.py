@@ -33,9 +33,8 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # spawning in enemies every 3 seconds
-        self.spawn_interval = 5000
+        self.spawn_interval = 3000
         self.SPAWN_ENEMY_EVENT = pygame.USEREVENT + 1
-        # pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, 20000)
         pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, self.spawn_interval)
 
         # setting the title of our game
@@ -504,13 +503,14 @@ class Game:
                     )
                 elif event.type == self.SPAWN_ENEMY_EVENT:
                     # if it has been 3 seconds and it it time to spawn in a new enemy
-                    self.spawn_interval *=0.5
+                    self.spawn_interval = int(self.spawn_interval * 0.9)
+                    pygame.time.set_timer(self.SPAWN_ENEMY_EVENT, self.spawn_interval)
                     self.level_one.spawn_enemy()
 
             if self.game_state == "start_menu":
                 self.user_score = 0
-                self.user_text = ""
-                self.main_sound.set_volume(0)
+                self.user_text = ''
+                self.main_sound.set_volume(0.7)
                 self.game_over_sound.set_volume(0)
                 self.low_health_sound.set_volume(0)
                 self.draw_start_menu()
@@ -534,7 +534,7 @@ class Game:
                 self.low_health_sound.set_volume(0)
                 self.user_score = self.level_one.get_player_score()
                 self.draw_game_over()
-                self.game_over_sound.set_volume(0)
+                self.game_over_sound.set_volume(0.7)
                 if keys[pygame.K_m]:
                     self.level_one.update_game_state("start_menu")
                 elif keys[pygame.K_s]:
@@ -542,7 +542,7 @@ class Game:
             elif self.game_state == "controls":
                 self.draw_controls()
                 if keys[pygame.K_ESCAPE]:
-                    self.level_one.update_game_state("start_menu")
+                    self.level_one.update_game_state('start_menu')
             elif self.game_state == "save":
                 self.draw_save_screen()
                 ready_to_save = False
@@ -555,19 +555,12 @@ class Game:
                             # Update the screen size
                             self.screen_width, self.screen_height = user_event.size
                             self.screen = pygame.display.set_mode(
-                                (self.screen_width, self.screen_height),
-                                pygame.RESIZABLE,
+                                (self.screen_width, self.screen_height), pygame.RESIZABLE
                             )
-                        if (
-                            user_event.type == pygame.KEYDOWN
-                            and user_event.key == pygame.K_LCTRL
-                        ):
+                        if user_event.type == pygame.KEYDOWN and user_event.key == pygame.K_LCTRL:
                             ready_to_save = True
                             break
-                        elif (
-                            user_event.type == pygame.KEYDOWN
-                            and user_event.key == pygame.K_BACKSPACE
-                        ):
+                        elif user_event.type == pygame.KEYDOWN and user_event.key == pygame.K_BACKSPACE:
                             self.user_text = self.user_text[:-1]
                         elif user_event.type == pygame.KEYDOWN:
                             self.user_text += user_event.unicode
@@ -577,15 +570,15 @@ class Game:
             elif self.game_state == "leaderboard":
                 self.draw_leaderboard()
                 if keys[pygame.K_ESCAPE]:
-                    self.level_one.update_game_state("start_menu")
+                    self.level_one.update_game_state('start_menu')
             else:
                 if self.low_health:
                     self.main_sound.set_volume(0)
                     self.game_over_sound.set_volume(0)
-                    self.low_health_sound.set_volume(0)
+                    self.low_health_sound.set_volume(0.7)
                 else:
                     self.low_health_sound.set_volume(0)
-                    self.main_sound.set_volume(0)
+                    self.main_sound.set_volume(0.7)
                 self.screen.fill(WATER_COLOR)
                 self.level_one.run()
                 pygame.display.update()

@@ -333,6 +333,9 @@ class Level:
     def unpause_the_level(self):
         self.pause = False
 
+    def get_player_score(self):
+        return self.player.exp
+
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
